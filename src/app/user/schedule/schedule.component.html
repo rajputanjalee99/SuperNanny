@@ -1,0 +1,173 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+    <app-header [data]="title"></app-header>
+    <!-- Navbar -->
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+        <div class="inn_mainn mb-3">
+            <h4>Schedule</h4>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-sm-10 col-lg-4 col-md-10 media_mb">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Availibility</h5>
+                        <mat-card class="demo-inline-calendar-card border_1px">
+                            <mat-calendar [(selected)]="selected" (click)="schedule_list()"></mat-calendar>
+                        </mat-card>
+                        <!-- <div class="schedule-content">
+                            <div class="first-text flex_property">
+                                <div class="schedule-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="schedule-text">
+                                    <h6 class="m-0">Video call</h6>
+                                </div>
+                            </div>
+                            <div class="side-text">
+                                 <p class="m-0 text-grey">8:50 PM</p> 
+                            </div>
+                        </div>
+                        <div class="schedule-content">
+                            <div class="first-text flex_property">
+                                <div class="schedule-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="schedule-text">
+                                    <h6 class="m-0">Nanny Booking</h6>
+                                </div>
+                            </div>
+                            <div class="side-text">
+                                <!-- <p class="m-0 text-grey">8:50 PM</p> 
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-sm-10 col-lg-8 col-md-10">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="Schedule-main">
+
+                            Date:{{selected | date :'yyyy-MM-dd'}}
+                            <!-- <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data active">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div>
+                            <div class="date-data">
+                                <p class="m-0">30</p>
+                                <p class="text-grey m-0">Mon</p>
+                            </div> -->
+                        </div>
+                        <div class="schedule-body">
+                            <div *ngFor="let schedule of nanny_booking_list">
+                                <div class="schedule-content">
+                                    <div class="first-text">
+                                        <div class="flex_property mb-2">
+                                            <div class="schedule-icon">
+                                                <i class="fas fa-book"></i>
+                                            </div>
+                                            <div class="schedule-text">
+                                                <h6 class="m-0 font_14">Nanny Booking</h6>
+                                            </div>
+                                        </div>
+                                        <div class="schedule-text">
+                                            <!-- <h6 class="m-0">Nanny Booking</h6> -->
+                                            <p class="m-0 text-grey font_12">Nanny Name : {{schedule?.nannyDetail?.name}} </p>
+                                            <p class="m-0 text-grey font_12">Booking Hours : {{schedule?.booking_hours}} </p>
+                                            <p class="m-0 text-grey font_12">Booked By : <span>{{schedule?.userDetail?.name}}</span></p>
+                                               
+                                        </div>
+                                    </div>
+                                    <div class="side-text">
+                                        <p class="m-0 text-grey font_12">Start
+                                            Time: {{timeConversion(schedule?.booking_start_time)}}</p>
+                                        <p class="m-0 text-grey font_12">Expire
+                                            Time: {{timeConversion(schedule?.booking_expire_time)}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let schedule of video_schedule_list">
+                                <div class="schedule-content">
+                                    <div class="first-text">
+                                        <div class="flex_property mb-2">
+                                            <div class="schedule-icon">
+                                                <i class="fas fa-video"></i>
+                                            </div>
+                                            <div class="schedule-text">
+                                                <h6 class="m-0 font_14">Video Call</h6>
+                                            </div>
+                                        </div>
+                                        <div class="schedule-text">
+                                            <p class="m-0 text-grey font_12">Video call with <span> {{schedule?.userDetail?.name}} </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="side-text">
+                                        <p class="m-0 text-grey font_12">{{schedule?.date | date:'h:mm a' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="schedule-content">
+                                <div class="first-text">
+                                    <div class="schedule-icon">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="schedule-text">
+                                        <h6 class="m-0">Text Name</h6>
+                                        <p class="m-0 text-grey">Video call with </p>
+                                    </div>
+                                </div>
+                                <div class="side-text">
+                                    <p class="m-0 text-grey">8:50 PM</p>
+                                </div>
+                            </div>
+                            <div class="schedule-content">
+                                <div class="first-text">
+                                    <div class="schedule-icon">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="schedule-text">
+                                        <h6 class="m-0">Text Name</h6>
+                                        <p class="m-0 text-grey">Video call with </p>
+                                    </div>
+                                </div>
+                                <div class="side-text">
+                                    <p class="m-0 text-grey">8:50 PM</p>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

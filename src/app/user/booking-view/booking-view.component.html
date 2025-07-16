@@ -1,0 +1,569 @@
+<aside>
+  <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+  <app-header [data]="title"></app-header>
+
+  <!-- <div class="container-fluid py-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+              <div class="avatar avatar-xl position-relative">
+                <img src="{{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.image}}" (error) ="onImgError($event)"
+                  class="w-100 border-radius-lg shadow-sm">
+              </div>
+              <div class="">
+                <div class="h-100">
+                  <h5 class="mb-1">
+                    {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.name}}
+                  </h5>
+                  <p class="mb-0 mt-2 font-weight-bold text-sm">
+                    {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.relation}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="form-group">
+                  <label for="">Name</label>
+                  <input type="text" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.name}}
+                    class="form-control" readonly>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="form-group">
+                  <label for="">Contact Number</label>
+                  <input type="text" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.contact_no}} class="form-control" readonly>
+                </div>
+              </div>
+              <div class="col-xl-12">
+                <div class="form-group">
+                  <label for="">My govt. ID proof</label>
+                  <input type="text" class="form-control" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.id_proof_type}} readonly>
+                </div>
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <img src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.front_doc}} (error) ="onImgError($event)"
+                          alt="" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <img src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[0]?.back_doc}} (error) ="onImgError($event)"
+                          alt="" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink bg-light-blue">
+              <div class="avatar avatar-xl position-relative">
+                <img src="{{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.image}}" (error) ="onImgError($event)" class="w-100 border-radius-lg shadow-sm">
+              </div>
+              <div class="">
+                <div class="h-100">
+                  <h5 class="mb-1">
+                    {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                  </h5>
+                  <p class="mb-0 mt-2 font-weight-bold text-sm">
+                    {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.relation}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="form-group">
+                  <label for="">Name</label>
+                  <input type="text" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                    class="form-control" readonly>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="form-group">
+                  <label for="">Contact Number</label>
+                  <input type="text" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.contact_no}} class="form-control" readonly>
+                </div>
+              </div>
+              <div class="col-xl-12">
+                <div class="form-group">
+                  <label for="">My govt. ID proof</label>
+                  <input type="text" class="form-control" value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.id_proof_type}} readonly>
+                </div>
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <img src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.front_doc}} (error) ="onImgError($event)"
+                          alt="" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <img src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.back_doc}} (error) ="onImgError($event)"
+                          alt="" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="order-detail mt-3">
+              <div class="side-lie">
+                <div class="top-btm-content">
+                  <div class="top-div" *ngFor="let number of this.BookingSlots; let i = index">
+                    <div>
+                      <p class="m-0 text-dark weight-700">{{this.hours_start[i]}}:{{this.minute_start[i]}}</p>
+                      <button class="btn btn-light m-0 p-2">{{this.AmPm_start[i]}}</button>
+                    </div>
+                    <div class="w-100 text-center">
+                      <p class="m-0 font-s-12 text-grey weight-700">{{this.BookingSlots[i]?.booking_hours}}</p>
+                      <div class="border-top-gredient"></div>
+                      <p class="m-0 font-s-12 text-grey weight-700">{{this.BookingSlots[i]?.booking_start_date | date}}
+                      </p>
+                    </div>
+                    <div>
+                      <p class="m-0 text-dark weight-700">{{this.hours_expire[i]}}:{{this.minute_expire[i]}}</p>
+                      <button class="btn btn-light m-0 p-2">{{this.AmPm_expire[i]}}</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="location-order bg-light-pink ps-3 pe-3 ms-2 text-center">
+                      <h6 class="m-0">
+                        <i class="fas fa-map-marker-alt text-pink" aria-hidden="true">
+
+                        </i> {{this.bookingData?.UserDetails?.parentInfo?.address?.complete_address}}
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="bottom-div">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+  <div class="container-fluid mt-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-xl-4">
+            <!-- <div class="parent-view-main">
+              <div class="parent-image">
+                <img [src]="this.bookingDetail?.UserDetails?.nannyData?.name" alt="" class="img-fluid">
+              </div>
+            </div> -->
+
+          </div>
+          <div class="col-xl-12 media_mb">
+            <div class="parent-view-main d-flex justify-content-between">
+              <div class="parent-txt">
+                <h4>Booking Type</h4>
+                <p class="text-grey m-0">
+                  <!-- <svg width="16" height="16" viewBox="0 0 275 272" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M211.397 0.67865C186.297 1.17865 181.397 1.57867 178.797 2.97867C164.897 10.5787 164.897 29.8787 178.797 37.0787C181.897 38.7787 184.397 38.9787 195.197 38.8787L207.897 38.7787L192.397 54.1787L176.997 69.6787L173.597 67.1787C168.597 63.2787 153.897 56.2787 144.897 53.4787C132.797 49.6787 122.097 48.4787 106.597 49.0787C78.1967 50.0787 54.4967 60.1787 33.6967 80.0787C9.69671 103.179 -2.70329 136.879 0.496711 170.779C1.89671 185.979 4.99671 196.879 11.5967 210.279C27.2967 241.979 57.2967 264.279 92.4967 270.379C106.097 272.679 126.497 271.879 139.897 268.379C170.597 260.479 197.197 238.879 211.397 210.279C224.797 183.179 226.897 152.779 217.397 123.779C214.997 116.779 209.397 104.979 206.097 100.379L204.097 97.5787L220.297 81.3787L236.397 65.2787V77.7787C236.397 92.9787 237.397 97.1787 242.397 101.879C251.297 110.379 266.297 108.379 272.197 97.9787C274.397 94.0787 274.397 93.5787 274.397 53.5787V13.1786L271.697 9.07864C270.297 6.77864 267.197 3.87865 264.997 2.67865C260.097 -0.12135 256.497 -0.22135 211.397 0.67865ZM131.897 89.7787C183.397 105.879 201.697 166.479 167.397 207.779C157.997 218.979 144.397 227.179 128.597 230.979C121.497 232.679 117.797 232.879 108.397 232.479C95.4967 231.879 86.9967 229.679 76.3967 224.179C53.3967 212.179 38.3967 186.979 38.3967 160.379C38.3967 124.879 64.1967 94.0787 99.1967 87.7787C107.197 86.2787 124.097 87.3787 131.897 89.7787Z" fill="grey"/>
+                                    </svg> -->
+
+                  <!-- <svg width="16" height="16" viewBox="0 0 223 332" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M92.2648 1.17929C68.8648 5.67929 48.9648 15.8793 33.0648 31.6793C15.9648 48.5793 5.76484 67.7793 1.36484 91.2793C-0.93516 103.379 -0.23516 127.779 2.76484 138.979C12.3648 175.479 38.7648 204.279 74.3648 217.079C78.2648 218.379 83.2648 219.879 85.6648 220.279L89.8648 220.979V237.279V253.579L73.1648 253.979C57.0648 254.279 56.1648 254.379 51.8648 256.979C39.4648 264.179 39.6648 282.779 52.2648 289.979C56.0648 292.079 57.7648 292.279 72.9648 292.579L89.6648 292.979L90.0648 305.579C90.4648 319.279 91.3648 322.079 96.5648 326.979C100.165 330.379 103.865 331.779 109.465 331.779C115.365 331.779 119.765 329.879 123.565 325.479C127.865 320.579 128.865 316.379 128.865 303.479V292.779H143.365C151.265 292.779 160.065 292.279 162.865 291.679C180.265 287.979 183.165 264.579 167.365 255.979C164.965 254.679 160.565 254.279 146.665 253.979L128.865 253.579V237.879V222.079L138.065 219.879C172.865 211.279 201.665 186.379 214.865 153.379C221.065 137.879 222.265 131.079 222.265 111.279C222.265 94.9793 221.965 92.3793 219.565 83.2793C214.565 64.5793 203.765 45.8793 190.265 32.3793C176.665 18.7793 157.865 7.97929 139.365 3.17929C127.065 -0.0207081 103.865 -1.02071 92.2648 1.17929ZM131.365 40.7793C156.065 48.4793 174.265 66.7793 181.965 91.7793C183.865 97.7793 184.265 101.679 184.365 110.779C184.365 124.879 183.065 130.379 176.665 143.679C172.465 152.479 170.465 155.279 163.565 162.279C154.265 171.579 145.065 177.379 133.365 181.379C126.165 183.879 123.965 184.079 111.365 184.079C99.0648 184.179 96.4648 183.879 89.6648 181.579C85.4648 180.179 78.9648 177.379 75.1648 175.279C66.1648 170.179 52.4648 156.479 47.3648 147.479C33.8648 123.179 34.9648 93.8793 50.2648 70.9793C60.4648 55.5793 78.0648 43.2793 94.8648 39.8793C97.8648 39.2793 101.265 38.5793 102.365 38.3793C107.065 37.2793 124.665 38.7793 131.365 40.7793Z" fill="grey"/>
+                                        </svg> -->
+                  {{this.bookingDetail?.booking_type}}
+                </p>
+              </div>
+              <div class="change-bttns">
+               
+                <!-- <button  *ngIf="this.bookingDetail?.nanny_status=='reject'" class="btn bg-gradient-info" data-bs-toggle="modal" data-bs-target="#supervisors" (click)="getAvailableNanny(this.bookingDetail?.price_group_obj._id)">Backup
+                  Nanny</button> -->
+              </div>
+
+            </div>
+          </div>
+          
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.bookingDetail?.booking_type=='one_time'" class="container-fluid mt-3">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-detail mt-3">
+                <div class="side-lie">
+                  <div class="top-btm-content">
+                    <div class="top-div">
+                      <div>
+                        <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                          date}}</p>
+                        <button class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_start_time
+                          | timeFormate}}</button>
+                      </div>
+                      <div class="w-100 text-center">
+                        <p class="m-0 font-s-12  text-grey weight-700">
+                          {{this.bookingDetail?.booking_slots[0]?.booking_hours }} hour</p>
+                        <div class="border-top-gredient"></div>
+                        <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_start_date | date}}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                          date}}</p>
+                        <button
+                          class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_expire_time |
+                          timeFormate}}</button>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">
+                        <h6 class="m-0">
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role=='parent'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                        </h6>
+                      </div>
+                    </div>
+                    <div class="bottom-div">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-summary">
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Children</p>
+                  <p class="m-0 text-grey font_size_12">{{getChild(this.bookingDetail?.UserDetails)}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Nanny amount </p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.extra_payment_object.nanny_amount}}</p>
+                </div>
+
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Plateform amount</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.extra_payment_object.admin_amount}}</p>
+                </div>
+                <div class="order-list" *ngIf="this.bookingDetail?.supervision_type =='with_supervision'">
+                  <p class="m-0 text-grey font_size_12">SuperVision amount </p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.extra_payment_object.superVision_amount}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Taxes and charges</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.extra_payment_object.tax}}</p>
+                </div>
+                <div class="order-list"
+                  *ngIf="this.bookingDetail?.extra_payment_object?.promoCode_amount != 0 && this.bookingDetail?.extra_payment_object?.promoCode_amount">
+                  <p class="m-0 text-grey font_size_12">Promo code </p>
+                  <p class="m-0 text-grey font_size_12">- {{this.bookingDetail?.extra_payment_object.promoCode_amount}}</p>
+                </div>
+                <div class="order-list"
+                  *ngIf="this.bookingDetail?.extra_payment_object.used_referral_amount != 0 && this.bookingDetail?.extra_payment_object.used_referral_amount">
+                  <p class="m-0 text-grey font_size_12">used_referral_amount </p>
+                  <p class="m-0 text-grey font_size_12">- {{this.bookingDetail?.extra_payment_object.used_referral_amount}}</p>
+                </div>
+                <div class="order-list total">
+                  <p class="m-0 text-grey weight-700">Total</p>
+                  <p class="m-0 text-grey">₹{{this.bookingDetail?.extra_payment_object?.total_amount }}
+                    <!-- p-->
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="this.bookingDetail?.booking_type=='multi_days'">
+    <div class="container-fluid mt-3">
+      <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-xl-6 media_mb" *ngFor="let booking of this.bookingDetail?.booking_slots">
+            <div class="card">
+              <div class="card-body">
+                <div class="order-detail mt-3">
+                  <div class="side-lie">
+                    <div class="top-btm-content">
+                      <div class="top-div">
+                        <div>
+                          <p class="m-0 text-dark weight-700">{{booking?.booking_start_date | date}}</p>
+                          <button class="btn btn-light m-0 p-2">{{this.booking?.booking_start_time |
+                            timeFormate}}</button>
+                        </div>
+                        <div class="w-100 text-center">
+                          <p class="m-0 font-s-12  text-grey weight-700">{{booking?.booking_hours}} hours</p>
+                          <div class="border-top-gredient"></div>
+                          <p class="m-0 font-s-12  text-grey weight-700">{{booking?.booking_start_date | date}}</p>
+                        </div>
+                        <div>
+                          <p class="m-0 text-dark weight-700">{{this.booking?.booking_start_date | date}}</p>
+                          <button class="btn btn-light m-0 p-2">{{booking.booking_expire_time | timeFormate}}</button>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">sads
+                          <h6 class="m-0">
+                            <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                              class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i>s {{
+                            this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                            <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                              class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> ss{{
+                            this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                            <i *ngIf="this.bookingDetail?.UserDetails?.role=='parent'"
+                              class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> sss{{
+                            this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="bottom-div">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 media_mb">
+            <div class="card">
+              <div class="card-body">
+                <div class="order-summary">
+                  <div class="order-list">
+                    <p class="m-0 text-grey"> Children</p>
+                    <p class="m-0 text-grey">{{getChild(this.bookingDetail?.UserDetails)}}</p>
+                  </div>
+                  <div class="order-list">
+                    <p class="m-0 text-grey">Nanny amount </p>
+                    <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.nanny_amount}}</p>
+                  </div>
+                  <div class="order-list">
+                    <p class="m-0 text-grey">Plateform amount</p>
+                    <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.admin_amount}}</p>
+                  </div>
+                  <div class="order-list" *ngIf="this.bookingDetail?.supervision_type =='with_supervision'">
+                    <p class="m-0 text-grey">SuperVision amount </p>
+                    <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.superVision_amount}}</p>
+                  </div>
+                  <div class="order-list">
+                    <p class="m-0 text-grey">Taxes and charges</p>
+                    <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.tax}}</p>
+                  </div>
+                  <div class="order-list total">
+                    <p class="m-0 text-grey weight-700">Total</p>
+                    <p class="m-0 text-grey">₹{{this.bookingDetail?.extra_payment_object?.total_amount }}
+                      <!-- p-->
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="this.bookingDetail?.booking_type=='long_term'" class="container-fluid mt-3">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-detail mt-3">
+                <div class="side-lie">
+                  <div class="top-btm-content">
+                    <div class="top-div">
+                      <div>
+                        <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                          date}}</p>
+                        <button class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_start_time
+                          | timeFormate}}</button>
+                      </div>
+                      <div class="w-100 text-center">
+                        <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_month }} months</p>
+                        <div class="border-top-gredient"></div>
+                        <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_start_date | date}}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[this.bookingDetail?.booking_slots.length-1]?.booking_expire_date
+                          | date}}</p>
+                        <button
+                          class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_expire_time |
+                          timeFormate}}</button>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">
+                        <h6 class="m-0">
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                          <i *ngIf="this.bookingDetail?.UserDetails?.role == 'parent'"
+                            class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                          this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                        </h6>
+                      </div>
+                    </div>
+                    <div class="bottom-div">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-summary">
+                <div class="order-list">
+                  <p class="m-0 text-grey">Children</p>
+                  <p class="m-0 text-grey">{{getChild(this.bookingDetail?.UserDetails)}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey">Nanny amount </p>
+                  <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.nanny_amount}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey">Plateform amount</p>
+                  <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.admin_amount}}</p>
+                </div>
+                <div class="order-list" *ngIf="this.bookingDetail?.supervision_type =='with_supervision'">
+                  <p class="m-0 text-grey">SuperVision amount </p>
+                  <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.superVision_amount}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey">Taxes and charges</p>
+                  <p class="m-0 text-grey">{{this.bookingDetail?.extra_payment_object.tax}}</p>
+                </div>
+                <div class="order-list total">
+                  <p class="m-0 text-grey weight-700">Total</p>
+                  <p class="m-0 text-grey">₹{{this.bookingDetail?.extra_payment_object?.total_amount }}
+                    <!-- p-->
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="container-fluid mt-3 mb-5">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-summary">
+                <h4><b>Nanny Detail</b></h4>
+                <div class="order-list mt-3">
+                  <p class="m-0 text-grey font_size_12">Name</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.nanny_data?.name}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Email</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.nanny_data?.email}}</p>
+                </div>
+                <div class="col-xl-5 text-end">
+                  <!-- <button class="btn bg-gradient-info mb-0"
+                    routerLink="/pages/view-nanny-profile/{{this.bookingDetail?.nannyData?._id}}">View
+                    Details</button> -->
+                </div>
+                <!-- <div class="order-list">
+                  <p class="m-0 text-grey">phone</p>
+                  <p class="m-0 text-grey">{{}}</p>
+                </div> -->
+                <!-- <div class="order-list total">
+                  <p class="m-0 text-grey weight-700">Total</p>
+                  <p class="m-0 text-grey">₹2,500p
+                  </p>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6  col-md-6 media_mb">
+          <div class="card">
+            <div class="card-body">
+              <div class="order-summary">
+                <h4><b>User Detail</b></h4>
+                <div class="order-list mt-3">
+                  <p class="m-0 text-grey font_size_12">Name</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.UserDetails?.name}}</p>
+                </div>
+                <div class="order-list">
+                  <p class="m-0 text-grey font_size_12">Email</p>
+                  <p class="m-0 text-grey font_size_12">{{this.bookingDetail?.UserDetails?.email}}</p>
+                </div>
+                <div class="col-xl-5 text-end">
+                  <!-- <button class="btn bg-gradient-info mb-0"
+                    routerLink="/pages/view-parent-profile/{{this.bookingDetail?.UserDetails._id}}">View
+                    Details</button> -->
+                </div>
+                <!-- <div class="order-list">
+                  <p class="m-0 text-grey">phone</p>
+                  <p class="m-0 text-grey"></p>
+                </div> -->
+                <!-- <div class="order-list total">
+                  <p class="m-0 text-grey weight-700">Total</p>
+                  <p class="m-0 text-grey">₹2,500p
+                  </p>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

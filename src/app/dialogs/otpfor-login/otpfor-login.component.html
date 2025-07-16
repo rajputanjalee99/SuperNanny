@@ -1,0 +1,72 @@
+<!-- <form (ngSubmit)="submit()">
+
+    <input type="text" [(ngModel)]="otp" name="otp" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" pattern="[0-9]+">
+    
+</form> -->
+<form (ngSubmit)="submit()">
+    <div class="mb-6 text-center">
+      <h5 class="mb-4">Enter the OTP sent to your Email</h5>
+      <div id="otp" class="flex justify-center">
+        <input
+          name="text1"
+          [(ngModel)]="text1"
+          class="m-2 text-center form-control form-control-solid rounded focus:border-blue-400 focus:shadow-outline"
+          type="text"
+          id="first"
+          maxlength="1"
+          (keyup)="keytab($event)" 
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+          pattern="[0-9]+"
+        />
+        <input
+          name="text2"
+          [(ngModel)]="text2"
+          class="m-2 text-center form-control form-control-solid rounded focus:border-blue-400 focus:shadow-outline"
+          type="text"
+          id="second"
+          maxlength="1"
+          (keyup)="keytab($event)" 
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+          pattern="[0-9]+"
+        />
+        <input
+          name="text3"
+          [(ngModel)]="text3"
+          class="m-2 text-center form-control form-control-solid rounded focus:border-blue-400 focus:shadow-outline"
+          type="text"
+          id="third"
+          maxlength="1"
+          (keyup)="keytab($event)" 
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+          pattern="[0-9]+"
+        />
+        <input
+          name="text4"
+          [(ngModel)]="text4"
+          class="m-2 text-center form-control form-control-solid rounded focus:border-blue-400 focus:shadow-outline"
+          type="text"
+          id="fourth"
+          maxlength="1"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+          pattern="[0-9]+"
+        />
+      </div>
+    </div>
+    <span class="btn_span_resend">
+      <button
+        class="btnbtnb"
+        [disabled]="!canResend"
+        (click)="resend()"
+        type="button"
+      >
+        Resend
+      </button>
+      <br />
+      in {{mins <= 9 ? "0"+mins : mins}}:{{seconds <= 9 ? "0"+seconds : seconds
+      }}</span
+    >
+    <div class="text-center">
+      <button class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  

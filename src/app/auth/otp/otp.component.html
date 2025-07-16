@@ -1,0 +1,39 @@
+<section class="min-vh-100 mb-8">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image:linear-gradient(102deg, #e9398c85, #02c4da87), url('..//assets/img/nanny23.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <img src="../assets/img/logos/superLOgo.png" class="logo-top position-absolute" alt="">
+
+            <h1 class="text-white mb-2 mt-5">Forgot Password</h1>
+            <!-- <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div class="card z-index-0">
+            <div class="p-3 text-center">
+              <h5>Pleasr enter your otp</h5>
+            </div>
+            <div class="card-body pt-0">
+              
+              <form role="form" >
+                <label>Email</label>
+                <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Enter OTP" aria-label="Email" aria-describedby="email-addon" [formControl]="textInputFormControl">
+                </div>
+                <div class="text-center">
+                  <a><button [disabled]="!textInputFormControl.value" type="button" class="btn bg-gradient-info w-100 mt-4 mb-0" (click)="sendOtp()">Send</button></a>
+                </div>
+                <p class="text-sm mt-3 mb-0" routerLink="/auth/login">Already have an account? <a  class="text-dark font-weight-bolder">Sign in</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

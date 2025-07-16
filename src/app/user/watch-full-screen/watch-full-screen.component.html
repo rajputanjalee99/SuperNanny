@@ -1,0 +1,1596 @@
+<aside>
+  <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+  <app-header [data]="title"></app-header>
+  <div class="container-fluid py-4 ">
+    <div class="row justify-content-center">
+      <div class="col-xl-7 col-sm-10 col-md-10 media_mb my-3">
+        <div class="card">
+          <div class="card-body p-1">
+            
+            <div id="jitsi-iframe"></div>
+
+            <div class="cptr-ss">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#capture-ss" (click)="screenshot_byjitsi()"
+                class="btn bg-gradient-info w-100 mt-4 mb-0">Capture
+                Screen Shot</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-sm-10 col-md-10 my-3">
+        <div class="card overflow_y">
+          <div class="todo-list">
+            <p class="m-0">{{todaydate()}}</p>
+          </div>
+          <div class="card-body p-0">
+            <!-- <div class="todo-lisiting" *ngFor="let task of this.getNannyTasksListing | slice:starTimeForSchedule:endTimeForSchedule+1"> -->
+              <div class="todo-lisiting" *ngFor="let task of this.filteredBookings">
+              <div>
+                <p class="m-0 font-s-12">Start time:{{task?.start_time | timeFormate}}</p>
+                <p class="m-0 font-s-12">End time: {{task?.end_time | timeFormate}}</p>
+                <p class="m-0"><strong>{{task?.title}}</strong></p>
+                <br />
+                <p class="m-0 font-s-6"><strong>Marked:</strong>{{task?.mark}}</p>
+              </div>
+              <div>
+            
+                  <nav >
+                    <ul>
+                      <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-ellipsis-v cursor-pointer"></i>
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
+                          aria-labelledby="dropdownMenuButton">
+                          <li class="mb-2">
+                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="text-sm font-weight-normal mb-1"
+                                (click)="assignTaskID(task._id)"  data-bs-toggle="modal"
+                                data-bs-target="#marker">
+                                  <span class="font-weight-bold">Complete Task</span>
+                                </h6>
+                              </div>
+                            </a>
+                          </li>
+                          
+                        </ul>
+                      </li>
+                    </ul>
+                   
+                  </nav>
+               
+              </div>
+            </div>
+            <div *ngIf="filteredBookings.length === 0"><strong>*No Task is Assigned</strong></div>
+            
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+
+  </div>
+  <div class="container-fluid py-1">
+    <div class="card">
+      <div class="card-body">
+        <ul class="nav nav-pills mb-3 display_overflow_class" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active font_15" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+              type="button" role="tab" aria-controls="pills-home" aria-selected="true">About Service</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link font_15" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+              type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Nanny Profile</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link font_15" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Customer detail</button>
+          </li>
+          <!-- <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-emergency-tab" data-bs-toggle="pill" data-bs-target="#pills-emergency"
+              type="button" role="tab" aria-controls="pills-emergency" aria-selected="false">Emergency Contact</button>
+          </li> -->
+          <li class="nav-item" role="presentation">
+            <button class="nav-link font_15" id="pills-notification-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification"
+              aria-selected="false">Notifications</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <!-- <div class="container-fluid p-0">
+              <div class="row">
+                <div class="col-xl-8">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="order-detail mt-3">
+                        <div class="side-lie">
+                          <div class="top-btm-content">
+                            <div class="top-div">
+                              <div>
+                                <p class="m-0 text-dark weight-700">10:20</p>
+                                <button class="btn btn-light m-0 p-2">AM</button>
+                              </div>
+                              <div class="w-100 text-center">
+                                <p class="m-0 font-s-12  text-grey weight-700">2 Hours</p>
+                                <div class="border-top-gredient"></div>
+                                <p class="m-0 font-s-12  text-grey weight-700">11 Nov, 2022</p>
+                              </div>
+                              <div>
+                                <p class="m-0 text-dark weight-700">10:20</p>
+                                <button class="btn btn-light m-0 p-2">PM</button>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="location-order bg-light-pink ps-3 pe-3 ms-2 text-center">
+                                <h6 class="m-0">
+                                  <i class="fas fa-map-marker-alt text-pink"></i> 123 Main Street, New York, NY 10030
+                                </h6>
+                              </div>
+                            </div>
+                            <div class="bottom-div">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="container-fluid p-0">
+              <div class="row">
+                <div class="col-xl-8">
+                  <div class="card">
+                    <div class="card-body p-2">
+                      <div class="order-detail mt-3">
+                        <div class="side-lie">
+                          <div class="top-btm-content">
+                            <div class="top-div" *ngFor="let number of this.BookingSlots; let i = index">
+                              <div>
+                                <p class="m-0 text-dark weight-700">{{this.hours_start[i]}}:{{this.minute_start[i]}}</p>
+                                <button class="btn btn-light m-0 p-2">{{this.AmPm_start[i]}}</button>
+                              </div>
+                              <div class="w-100 text-center">
+                                <p class="m-0 font-s-12 text-grey weight-700">{{this.BookingSlots[i]?.booking_hours}}
+                                </p>
+                                <div class="border-top-gredient"></div>
+                                <p class="m-0 font-s-12 text-grey weight-700">{{this.BookingSlots[i]?.booking_start_date
+                                  | date}}
+                                </p>
+                              </div>
+                              <div>
+                                <p class="m-0 text-dark weight-700">{{this.hours_expire[i]}}:{{this.minute_expire[i]}}
+                                </p>
+                                <button class="btn btn-light m-0 p-2">{{this.AmPm_expire[i]}}</button>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="location-order bg-light-pink ps-3 pe-3 ms-2 text-center mt-5">
+                                <h6 class="m-0">
+                                  <i class="fas fa-map-marker-alt text-pink" aria-hidden="true">
+
+                                  </i> {{this.bookingData?.UserDetails?.parentInfo?.address?.complete_address}}
+                                </h6>
+                              </div>
+                            </div>
+                            <div class="bottom-div">
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container-fluid py-4 px-0">
+
+              <!-- <div class="row gx-4 bg-light-pink py-2">
+                <div class="col-auto">
+                  <div class="avatar avatar-xl position-relative">
+                    <img src="../assets/img/bruce-mars.jpg" alt="profile_image"
+                      class="w-100 border-radius-lg shadow-sm">
+                  </div>
+                </div>
+                <div class="col-auto my-auto">
+                  <div class="h-100">
+                    <h5 class="mb-1">
+                      Jone Doe
+                    </h5>
+                    <div class=" live-star d-flex align-items-center">
+                      <i class="fa fa-star ml-1" aria-hidden="true"></i>
+                      <i class="fa fa-star ml-1" aria-hidden="true"></i>
+                      <i class="fa fa-star ml-1" aria-hidden="true"></i>
+                      <i class="fa fa-star ml-1" aria-hidden="true"></i>
+                      <i class="fa fa-star ml-1" aria-hidden="true"></i>
+                    </div>
+                    <p class="mb-0 mt-2 font-weight-bold text-sm">
+                      <svg width="10" height="17" viewBox="0 0 109 171" fill="none">
+                        <path
+                          d="M54.5 0C24.4432 0 0 23.0219 0 51.3308C0 76.7139 19.6836 97.8023 45.4167 101.892V128.327H18.1667V145.437H45.4167V171H63.5833V145.437H90.8333V128.327H63.5833V101.892C89.3164 97.7937 109 76.7139 109 51.3308C109 23.0219 84.5567 0 54.5 0ZM54.5 85.5513C34.4622 85.5513 18.1667 70.2034 18.1667 51.3308C18.1667 32.4582 34.4622 17.1103 54.5 17.1103C74.5378 17.1103 90.8333 32.4582 90.8333 51.3308C90.8333 70.2034 74.5378 85.5513 54.5 85.5513Z"
+                          fill="#757494" />
+                      </svg>
+
+                      Female, 24 Year old
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+              <div class="row gx-4 bg-light-pink py-2">
+                <div class="col-auto">
+                  <div class="avatar avatar-xl position-relative">
+                    <!-- <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm"> -->
+                    <!-- <img *ngIf="profile && !profile.image" [src]="env.DEFAULT_IMAGE" alt="Nanny Profile Image"
+                      class="w-100 border-radius-lg shadow-sm"> -->
+                    <img [src]="env+profile?.nannyInfo?.take_photo" (error)="onImgError($event)"
+                      alt="Nanny Profile Image" class="w-100 border-radius-lg shadow-sm">
+                  </div>
+                </div>
+                <div class="col-auto my-auto">
+                  <div class="h-100">
+                    <h5 class="mb-1 font_14">
+                      {{ profile && profile.name }}
+                    </h5>
+                    <div class=" live-star d-flex align-items-center">
+                      <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==1 || getRating(profile?.nannyInfo?.avg_rating)==2 || getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5" class="fa fa-star" aria-hidden="true"></i>
+                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==2 || getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5" class="fa fa-star" aria-hidden="true"></i>
+                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4" class="fa fa-star" aria-hidden="true"></i>
+                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5" class="fa fa-star" aria-hidden="true"></i>
+                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==5" class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                    <p class="mb-0 mt-2 font-weight-bold text-sm">
+                      <svg *ngIf="profile && profile.gender && profile.gender" width="10" height="17"
+                        viewBox="0 0 109 171" fill="none">
+                        <path
+                          d="M54.5 0C24.4432 0 0 23.0219 0 51.3308C0 76.7139 19.6836 97.8023 45.4167 101.892V128.327H18.1667V145.437H45.4167V171H63.5833V145.437H90.8333V128.327H63.5833V101.892C89.3164 97.7937 109 76.7139 109 51.3308C109 23.0219 84.5567 0 54.5 0ZM54.5 85.5513C34.4622 85.5513 18.1667 70.2034 18.1667 51.3308C18.1667 32.4582 34.4622 17.1103 54.5 17.1103C74.5378 17.1103 90.8333 32.4582 90.8333 51.3308C90.8333 70.2034 74.5378 85.5513 54.5 85.5513Z"
+                          fill="#757494" />
+                      </svg>
+                      {{ profile && profile?.nannyInfo?.gender && profile?.nannyInfo?.gender+", " }} {{ profile && profile?.nannyInfo?.nany_dob &&
+                      commonService.calculateAgeFromDOB(profile.nannyInfo?.nany_dob)+" Year old" }}
+                      <!-- Female, 24 Year old -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mt-4">
+                <div class="col-12 col-xl-4">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <h6 class="mb-0">About Nanny</h6>
+                    </div>
+                    <div class="card-body p-3">
+                      <p class="font-s-12">Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dolorem modi
+                        officiis vero? Debitis autem nesciunt voluptatum magnam, quod assumenda voluptatem? Iusto
+                        molestias pariatur officia laborum quisquam iure aliquid doloremque!</p>
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                            class="text-dark">Experience:</strong> &nbsp; 4 Years</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-4">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <div class="row">
+                        <div class="col-md-8 d-flex align-items-center">
+                          <h6 class="mb-0">Profile Information</h6>
+                        </div>
+                        <div class="col-md-4 text-end">
+                          <a href="javascript:;">
+
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body p-3">
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full
+                            Name:</strong> &nbsp; Harry</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong>
+                          &nbsp; (+91) 123 1234 123</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong>
+                          &nbsp; harry@mail.com</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong>
+                          &nbsp; INDIAN </li>
+                        <li class="list-group-item border-0 ps-0 pb-0">
+                          <strong class="text-dark text-sm">Language:</strong> &nbsp;
+                          English, Hindi
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-4">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <h6 class="mb-0">Documents</h6>
+                    </div>
+                    <div class="card-body p-3">
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                          <div class="avatar me-3">
+                            <img alt="kal" class="border-radius-lg shadow">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Front Side</h6>
+                            <p class="mb-0 text-xs">Front name</p>
+                          </div>
+                        </li>
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                          <div class="avatar me-3">
+                            <img alt="kal" class="border-radius-lg shadow">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Back Side</h6>
+                            <p class="mb-0 text-xs">Back Name</p>
+                          </div>
+                        </li>
+                        <li class="list-group-item border-0 d-flex align-items-center px-0">
+                          <div class="avatar me-3">
+                            <img alt="kal" class="border-radius-lg shadow">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Upload Govt. ID Proof</h6>
+                            <p class="mb-0 text-xs">Documenr</p>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div> -->
+
+              <div class="row mt-4">
+                <div class="col-12 col-xl-4 media_mb">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <h6 class="mb-0 font_14">About Nanny</h6>
+                    </div>
+                    <div class="card-body p-3">
+                      <p class="font-s-12">{{ profile && profile.nannyInfo.about}}</p>
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                            class="text-dark font_14"></strong>
+                          &nbsp; {{ profile && profile.nannyInfo.experience && profile.nannyInfo.experience+" Years" }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-4 media_mb">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <div class="row">
+                        <div class="col-md-8 d-flex align-items-center">
+                          <h6 class="mb-0 font_14">Profile Information</h6>
+                        </div>
+                        <div class="col-md-4 text-end">
+                          <a href="javascript:;">
+                            <!-- <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i> -->
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body p-3">
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 font_12"><strong class="text-dark">Full
+                            Name:</strong>
+                          &nbsp; {{ profile && profile?.nannyInfo?.name }}</li>
+                        <li class="list-group-item border-0 ps-0 font_12"><strong class="text-dark">Mobile:</strong>
+                          &nbsp; {{
+                          profile && "(+91) "+profile?.phone }}</li>
+                        <li class="list-group-item border-0 ps-0 font_12">
+                          <strong class="text-dark">Email:</strong>
+                          &nbsp; {{
+                          profile && profile?.email }}</li>
+                        <li class="list-group-item border-0 ps-0 font_12"><strong class="text-dark">Location:</strong>
+                          &nbsp; {{
+                          profile && profile.nannyInfo?.address && profile?.nannyInfo?.address?.complete_address }} </li>
+                        <li class="list-group-item border-0 ps-0 pb-0">
+                          <strong class="text-dark font_12">Language:</strong> &nbsp;
+                          <ng-container *ngIf="profile && profile?.nannyInfo?.language_spoken">
+                            <span *ngFor="let language of profile?.nannyInfo?.language_spoken">
+                              {{language}}
+                            </span>
+                          </ng-container>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-4 media_mb">
+                  <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                      <h6 class="mb-0">Documents</h6>
+                    </div>
+                    <div class="card-body p-3">
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                          <div class="avatar me-3">
+                            <img [src]="documents.front.path" alt="kal" class="border-radius-lg shadow"
+                              (error)="onImgError($event)">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Front Side</h6>
+                            <p class="mb-0 text-xs overflow_anywhere">{{ documents?.front?.name }}</p> <button class="btn btn-light m-0 p-2"
+                              (click)="downloadImage(documents.front.name)"> <i
+                                class="fa fa-download me-sm-1"></i></button>
+                           
+                              <!-- <ul class="list-group">
+                              <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                <div class="avatar me-3">
+                                  <img  alt="kal" class="border-radius-lg shadow">
+                                </div>
+                                <div class="d-flex align-items-start flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm">Front Side</h6>
+                                  <p class="mb-0 text-xs">Front name</p>
+                                </div>
+                                
+                              </li>
+          
+                              <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                <div class="avatar me-3">
+                                  <img  alt="kal" class="border-radius-lg shadow">
+                                </div>
+                                <div class="d-flex align-items-start flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm">Back Side</h6>
+                                  <p class="mb-0 text-xs">Back Name</p>
+                                </div>
+                              </li>
+                              <li class="list-group-item border-0 d-flex align-items-center px-0">
+                                <div class="avatar me-3">
+                                  <img  alt="kal" class="border-radius-lg shadow">
+                                </div>
+                                <div class="d-flex align-items-start flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm">Upload Govt. ID Proof</h6>
+                                  <p class="mb-0 text-xs">Documenr</p>
+                                </div>
+                              </li>
+                            </ul> -->
+                            
+                          </div>
+                        </li>
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                          <div class="avatar me-3">
+                            <img [src]="documents.back.path" alt="kal" class="border-radius-lg shadow"
+                              (error)="onImgError($event)">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Back Side</h6>
+                            <p class="mb-0 text-xs overflow_anywhere">{{ documents.back.name }}</p> <button class="btn btn-light m-0 p-2"
+                              (click)="downloadImage(documents.back.name)"> <i
+                                class="fa fa-download me-sm-1"></i></button>
+                          </div>
+                        </li>
+                        <li class="list-group-item border-0 d-flex align-items-center px-0">
+                          <div class="avatar me-3">
+                            <img [src]="documents.verificaton.path" alt="kal" class="border-radius-lg shadow"
+                              (error)="onImgError($event)">
+                          </div>
+                          <div class="d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">Verification Document</h6>
+                            <p class="mb-0 text-xs overflow_anywhere">{{ documents.verificaton.name }}</p> <button
+                              class="btn btn-light m-0 p-2" (click)="downloadImage(documents.verificaton.name)"> <i
+                                class="fa fa-download me-sm-1"></i></button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <!-- <div class="container-fluid py-4">
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                    <div class="avatar avatar-xl position-relative">
+                      <img src="../assets/img/bruce-mars.jpg" alt="profile_image"
+                        class="w-100 border-radius-lg shadow-sm">
+                    </div>
+                    <div class="">
+                      <div class="h-100">
+                        <h5 class="mb-1">
+                          Jone Doe
+                        </h5>
+                        <p class="mb-0 mt-2 font-weight-bold text-sm">
+                          Mother
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" placeholder="Anil Kapoor">
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label for="">Contact Number</label>
+                        <input type="text" class="form-control" placeholder="Anil Kapoor">
+                      </div>
+                    </div>
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label for="">My govt. ID proof</label>
+                        <input type="text" class="form-control" placeholder="Aadhaar Card">
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="card">
+                            <div class="card-body">
+                              <img src="../assets/img/aadhaar.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="card">
+                            <div class="card-body">
+                              <img src="../assets/img/aadhaar.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink bg-light-blue">
+                    <div class="avatar avatar-xl position-relative">
+                      <img src="../assets/img/bruce-mars.jpg" alt="profile_image"
+                        class="w-100 border-radius-lg shadow-sm">
+                    </div>
+                    <div class="">
+                      <div class="h-100">
+                        <h5 class="mb-1">
+                          Jone Doe
+                        </h5>
+                        <p class="mb-0 mt-2 font-weight-bold text-sm">
+                          Father
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" placeholder="Anil Kapoor">
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label for="">Contact Number</label>
+                        <input type="text" class="form-control" placeholder="Anil Kapoor">
+                      </div>
+                    </div>
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label for="">My govt. ID proof</label>
+                        <input type="text" class="form-control" placeholder="Aadhaar Card">
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="card">
+                            <div class="card-body">
+                              <img src="../assets/img/aadhaar.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="card">
+                            <div class="card-body">
+                              <img src="../assets/img/aadhaar.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="container-fluid py-4 px-0">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="row justify-content-center">
+                    <div class="col-xl-8" *ngFor="let user of this.bookingData?.UserDetails?.parentInfo?.parent_app_users">
+                      <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                        <div class="avatar avatar-xl position-relative">
+                          <img
+                            src="{{this.USER_PROFILE1+user?.image}}"
+                            (error)="onImgError($event)" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        </div>
+                        <div class="">
+                          <div class="h-100">
+                            <h5 class="mb-1 font_14">
+                              {{user?.name}}
+                            </h5>
+                            <p class="mb-0 mt-2 font-weight-bold text-sm font_12">
+                              {{user?.relation}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text"
+                              value={{user?.name}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Contact Number</label>
+                            <input type="text"
+                              value={{user?.contact_no}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label for="">My govt. ID proof</label>
+                            <input type="text" class="form-control"
+                              value={{user?.id_proof_type}}
+                              readonly>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6 col-sm-6 col-md-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.USER_PROFILE1+user?.front_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-sm-6 col-md-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.USER_PROFILE1+user?.back_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-xl-6">
+                      <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink bg-light-blue">
+                        <div class="avatar avatar-xl position-relative">
+                          <img
+                            src="{{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.image}}"
+                            (error)="onImgError($event)" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        </div>
+                        <div class="">
+                          <div class="h-100">
+                            <h5 class="mb-1">
+                              {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                            </h5>
+                            <p class="mb-0 mt-2 font-weight-bold text-sm">
+                              {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.relation}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Contact Number</label>
+                            <input type="text"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.contact_no}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label for="">My govt. ID proof</label>
+                            <input type="text" class="form-control"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.id_proof_type}}
+                              readonly>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.front_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.back_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid py-4 px-0">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="row justify-content-center">
+                    <div class="col-xl-8" *ngFor="let user of this.bookingData?.UserDetails?.parentInfo?.child_details">
+                      <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                        <div class="avatar avatar-xl position-relative">
+                          <img
+                            src="{{this.USER_PROFILE1+user?.image}}"
+                            (error)="onImgError($event)" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        </div>
+                        <div class="">
+                          <div class="h-100">
+                            <h5 class="mb-1">
+                              {{user?.name}}
+                            </h5>
+                            <p class="mb-0 mt-2 font-weight-bold text-sm">
+                              {{'Child'}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text"
+                              value={{user?.name}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">DOB</label>
+                            <input type="text"
+                              [value]=getDob(user?.dob)
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label for="">gender</label>
+                            <input type="text"
+                              value={{user?.gender}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label for="">My govt. ID proof</label>
+                            <input type="text" class="form-control"
+                              value={{user?.id_proof_type}}
+                              readonly>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6 col-sm-6 col-md-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.USER_PROFILE1+user?.front_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-sm-6 col-md-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.USER_PROFILE1+user?.back_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-xl-6">
+                      <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink bg-light-blue">
+                        <div class="avatar avatar-xl position-relative">
+                          <img
+                            src="{{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.image}}"
+                            (error)="onImgError($event)" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        </div>
+                        <div class="">
+                          <div class="h-100">
+                            <h5 class="mb-1">
+                              {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                            </h5>
+                            <p class="mb-0 mt-2 font-weight-bold text-sm">
+                              {{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.relation}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.name}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label for="">Contact Number</label>
+                            <input type="text"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.contact_no}}
+                              class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label for="">My govt. ID proof</label>
+                            <input type="text" class="form-control"
+                              value={{this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.id_proof_type}}
+                              readonly>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.front_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <img
+                                    src={{this.profile_env+this.bookingData?.UserDetails?.parentInfo?.parent_app_users[1]?.back_doc}}
+                                    (error)="onImgError($event)" alt="" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="tab-pane fade" id="pills-emergency" role="tabpanel" aria-labelledby="pills-emergency-tab">
+
+          </div> -->
+
+          <!-- Notifications -->
+
+          <div class="tab-pane fade" id="pills-notification" role="tabpanel" aria-labelledby="pills-notification-tab">
+            <div class="container-fluid py-4 px-0">
+              <h5>Notifications & Schedules</h5>
+              <div class="card mt-3">
+                <div class="card-body p-0">
+                  <div class="innr_body ">
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="innr_srch">
+                          <h4 class="mb-4 font_14">Select Main Notification Types</h4>
+                          <!-- <mat-form-field appearance="fill">
+                                         <mat-label>Categories</mat-label>
+                                         <mat-select [formControl]="toppings" multiple>
+                                           <mat-select-trigger>
+                                             {{toppings.value?.[0] || ''}}
+                                             <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+                                               (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                                             </span>
+                                           </mat-select-trigger>
+                                           <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                                         </mat-select>
+                                     </mat-form-field> -->
+                          <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Categories</mat-label>
+                            <mat-select [(ngModel)]="selected_category">
+                              <mat-option *ngFor="let cat of notification_categories" [value]="cat?.name"
+                                (click)="resetImage()">
+                                {{cat?.name}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="food_optn mb-4" *ngIf="selected_category === 'Food'">
+                      <div [formGroup]="food">
+                        <h5 class="mb-3 font_14">
+                          Food Options
+                        </h5>
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div>
+                                <div class="nnr_img">
+                                  <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                  <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                    [src]="fileObj.filename"></video>
+                                </div>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_btn_design input_dngtgw" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>                   
+                          </div>
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('food',food)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('food',food)"/> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-5">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of types"
+                              (click)="buttonState(type?.type,'types')" (click)="getValForm('food',food)"><i
+                                class="fa-solid fa-utensils me-3"></i>{{type?.type}}</button>
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-4">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="meal?.class" *ngFor="let meal of meals"
+                              (click)="buttonState(meal?.type,'meals')" (click)="getValForm('food',food)">{{meal?.type}}</button>
+                          </div>
+                        </div>
+                        <div class="meal_type mt-5">
+                          <h5 class="mb-3 font_14">Meal Type</h5>
+                          <div class="div_mealdisplay_block row">
+                            <div class="col-lg-6">
+                              <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Meal Type</mat-label>
+                                <mat-select formControlName="meal_type" (selectionChange)="getValForm('food',food)">
+                                  <mat-option value="breakfast">
+                                    Breakfast
+                                  </mat-option>
+                                  <mat-option value="morning_snack">
+                                    Morning Snack
+                                  </mat-option>
+                                  <mat-option value="lunch">
+                                    Lunch
+                                  </mat-option>
+                                  <mat-option value="evening_snack">
+                                    Evening Snack
+                                  </mat-option>
+                                  <mat-option value="dinner">
+                                    Dinner
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                            </div>
+                            <div class=" col-lg-6 display_block position-relative">
+                              <h4 class="itms_mk me-1 font_14">Meal Items</h4>
+                              <ng-container formArrayName="meal_item">
+                                <ng-container *ngFor="let meal_item of meal_item?.controls; let i = index">
+                                  <div [formGroupName]="i" class="position-relative">
+                                    <input name="" formControlName="meal_item" class="form-control meal-item-input padding_right mt-2 " (keyup)="getValForm('food',food)"/>
+
+                                    <div class="div_col mt_icn remove_btnn_minus text-end" *ngIf="i > 0">
+                                      <a (click)="remove_meal_items(i)" (click)="getValForm('food',food)" class="me-2 mt-2"> <i
+                                          class="fa-solid fa-circle-minus"></i></a>
+                                    </div>
+                                  </div>
+                                </ng-container>
+                                <div class="div_col">
+                                  <a class="btn_design_set" (click)="add_meal_items()" (click)="getValForm('food',food)"> <i class="fa-solid fa-circle-plus"></i></a>
+                                </div>
+                              </ng-container>
+
+                            </div>
+                          </div>
+                          <div class="comments_food mt-3">
+                            <h4 class="itms_mk font_14">Other Comments</h4>
+                            <textarea   name="" formControlName="other_comment" class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('food')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn1 mb-4" *ngIf="selected_category === 'Nap'">
+                      <div [formGroup]="nap">
+                        <h5 class="mb-3 font_14">
+                          Nap Options
+                        </h5>
+
+                        <div class="">
+                          <div class="div_option d-flex justify-content-center">
+                            <div class="d-flex align-items-center">
+                              <div class="nnr_img">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                                <div class="text-center position-relative">
+                                  <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                      class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                  <input class="input_btn_design " type="file" (change)="onSelectImageVideo($event)">
+                                </div>
+                              </div>
+                            </div>
+                          </div>                       
+                        </div>
+                          
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                              <mat-form-field appearance="outline" class="time_picker_css">
+                                <input
+                                  type="text"
+                                  matInput
+                                  [ngxMatTimepicker]="picker"
+                                  [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('nap',nap)"
+                                  readonly/>
+                              
+                                <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                              </mat-form-field>
+                              <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('nap',nap)"/> -->
+                          </div>
+                        </div>
+                         
+                          <!-- <i class=" fa-solid fa-uploadcil clas_icon"></i> -->
+                    
+                        <div class="div_btnn mt-5">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of nap_arr"
+                              (click)="nap_time(type?.type)" (click)="getValForm('nap',nap)">{{type?.title}}</button>
+                            <!-- <button type="button" class="btn btn-primary w-100 mb-0 me-5" (click)="nap_time('start_time')" ><i class="fa-solid fa-hourglass-start me-2"></i>Nap Start</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0" (click)="nap_time('end_time')"><i class="fa-solid fa-hourglass-end me-2"></i>Nap End</button> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" rows="5" class="form-control" formControlName="note"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('nap')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn2 mb-3" *ngIf="selected_category === 'Toilet'">
+                      <div [formGroup]="toilet">
+                        <h5 class="mb-3 font_14">
+                          Diaper/Toilet
+                        </h5>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('toilet',toilet)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('toilet',toilet)"/> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-3">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="btn  "
+                              (click)="toilet_diaper('toilet')" [ngClass]="this.toilet_selected ? 'btn-primary w-100 mb-0' :'btn btn-primary outLine w-100 mb-0'"><i
+                                class="fa-solid fa-hourglass-start me-2" ></i> Toilet</button>
+                            <button type="button" class="btn "
+                              (click)="toilet_diaper('diaper')" [ngClass]="this.diaper_selected ? 'btn-primary w-100 mb-0' :'btn btn-primary outLine w-100 mb-0'"><i
+                                class="fa-solid fa-hourglass-end me-2" ></i>Diaper</button>
+                          </div>
+                        </div>
+                        <div class="div_btnn Diaper mt-4" *ngIf="diaper_selected">
+                          <h5 class="mb-3 font_14">
+                            Diaper
+                          </h5>
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of diaper_arr"
+                              (click)="buttonState_toilet(type?.type,'diaper')" (click)="getValForm('toilet',toilet)">{{type?.type}}</button>
+
+                            <!-- <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Wet</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Potty</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">dry</button> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn Toilet mt-4" *ngIf="toilet_selected">
+                          <h5 class="mb-3 font_14">
+                            Toilet
+                          </h5>
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of toilet_arr"
+                              (click)="buttonState_toilet(type?.type,'toilet')" (click)="getValForm('toilet',toilet)">{{type?.type}}</button>
+
+                            <!-- <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Potty</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Urine</button> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" rows="5" class="form-control" formControlName="note"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('toilet')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" fa-solid me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn3 mb-4" *ngIf="selected_category === 'Play'">
+                      <div [formGroup]="play">
+                        <h5 class="mb-3 font_14">
+                          Activity
+                        </h5>
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div class="nnr_img">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_btn_design" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>
+
+                            
+                          </div>
+
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('play',play)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('play',play)"/> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-5">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of play_arr"
+                              (click)="buttonState_play(type?.type)" (click)="getValForm('play',play)">{{type?.title}}</button>
+
+                            <!-- <button type="button" class="btn btn-primary w-100 mb-0 me-5"><i class="fa-solid fa-play me-3"></i>Play Time</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0"><i class="fa-solid fa-chalkboard-user me-3"></i>Learning Activity</button> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Other Comments</h4>
+                          <textarea  name="" class="form-control" formControlName="note" rows="5"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('play')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn4 mb-4" *ngIf="selected_category === 'Outdoor'">
+                      <div [formGroup]="outdoor">
+                        <h5 class="mb-3 font_14">
+                          Outdoor
+                        </h5>
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div class="nnr_img ">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_dgn" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>
+
+                           
+                          </div>
+
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('outdoor',outdoor)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('outdoor',outdoor)"/> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Location</h4>
+                          <textarea name="" class="form-control" formControlName="location" rows="2" (keyup)="getValForm('outdoor',outdoor)"></textarea>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" class="form-control" formControlName="note" rows="5"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('outdoor')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn5 mb-4" *ngIf="selected_category === 'Mood'">
+                      <div [formGroup]="mood">
+                        <h5 class="mb-3 font_14">
+                          Mood
+                        </h5>
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div class="nnr_img">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_dgn" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>
+
+                           
+                          </div>
+
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('mood',mood)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('mood',mood)"/> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-5">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of mood_arr"
+                              (click)="buttonState_mood(type?.type)" (click)="getValForm('mood',mood)">{{type?.title}}</button>
+
+                            <!-- <button type="button" class="btn btn-primary w-100 mb-0 me-3">Happy</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Emotional</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0">Crying</button> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" class="form-control" formControlName="note" rows="5"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('mood')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+
+                    </div>
+
+                    <div class="food_optn food_optn5 mb-4" *ngIf="selected_category === 'Health'">
+                      <h5 class="mb-3 font_14">
+                        Health
+                      </h5>
+                      <div [formGroup]="health">
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div class="nnr_img">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_dgn" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>
+
+                            
+                          </div>
+
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time" (change)="getValForm('health',health)"
+                                readonly/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('health',health)"/> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-5">
+                          <div class="text-center d-flex align-items-center gap-4 display_block">
+
+                            <button type="button" class="margin_0" [class]="type?.class" *ngFor="let type of health_arr"
+                              (click)="buttonState_health(type?.type)" (click)="getValForm('health',health)">{{type?.title}}</button>
+
+
+                            <!-- <button type="button" class="btn btn-primary w-100 mb-0 me-3">Fine</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0 me-3">Sick</button>
+                                    <button type="button" class="btn btn-primary outLine w-100 mb-0">Injured</button> -->
+                          </div>
+                        </div>
+                        <div class="div_btnn mt-5" *ngIf="this.healthstatus=='sick'">
+                          <h4 class="font_14">Observations</h4>
+                          <section class="example-section slct_nms">
+                            <p class="mb-0">
+                              <mat-checkbox (change)="observations($event,'fever')">Fever</mat-checkbox>
+                            </p>
+                            <p class="mb-0">
+                              <mat-checkbox (change)="observations($event,'cough')">Cough</mat-checkbox>
+                            </p>
+                            <p class="mb-0">
+                              <mat-checkbox (change)="observations($event,'vomiting')">Vomting</mat-checkbox>
+                            </p>
+                            <p class="mb-0">
+                              <mat-checkbox (change)="observations($event,'skin_rash')">Skin Rash</mat-checkbox>
+                            </p>
+                          </section>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" class="form-control" formControlName="note" rows="5"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('health')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                    <div class="food_optn food_optn6 mb-4" *ngIf="selected_category === 'Safety'">
+                      <div [formGroup]="safety">
+                        <h5 class="mb-3 font_14">
+                          Safety/Supplies
+                        </h5>
+                        <div class="div_option d-flex justify-content-center">
+                          <div class="d-flex align-items-center">
+                            <div>
+                              <div class="nnr_img">
+                                <img *ngIf="file_type === 'image'" [src]="fileObj.filename" alt="">
+                                <video *ngIf="file_type === 'video'" style="height:100px;width:100px"
+                                  [src]="fileObj.filename"></video>
+                              </div>
+                              <div class="text-center position-relative">
+                                <button type="button" class="btn bg-gradient-info uplod-btn mb-0"><i
+                                    class=" fa-solid fa-upload me-2"></i>Upload</button>
+                                <input class="input_dgn" type="file" (change)="onSelectImageVideo($event)">
+                              </div>
+                            </div>
+
+                            
+                          </div>
+
+                        </div>
+                        <div class="mt-4">
+                          <div class="d-flex align-items-center gap-3">
+                            <h4 class="mb-0 font_14">
+                              Time:
+                            </h4>
+                            <mat-form-field appearance="outline" class="time_picker_css">
+                              <input
+                                type="text"
+                                matInput
+                                [ngxMatTimepicker]="picker"
+                                [format]="24" min="09:00" max="18:00" formControlName="time"
+                                readonly (change)="getValForm('safety',safety)"/>
+                            
+                              <mat-icon matSuffix [ngxMatTimepicker]="picker">schedule</mat-icon>
+                            </mat-form-field>
+                            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            <!-- <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" class="form-control focus hi width_class w_20 font_size_20" (change)="getValForm('safety',safety)"/> -->
+                          </div>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">text</h4>
+                          <textarea  name="" class="form-control" formControlName="text" rows="5" (keyup)="getValForm('safety',safety)"></textarea>
+                        </div>
+                        <div class="comments_food mt-4">
+                          <h4 class="itms_mk font_14">Note</h4>
+                          <textarea  name="" class="form-control" formControlName="note" rows="5"></textarea>
+                        </div>
+                      </div>
+                      <button type="button" (click)="save('safety')" class="btn bg-gradient-info w-100 mt-4 mb-0"><i
+                          class=" me-2"></i>Save</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- screenshot-modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="capture-ss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Captured Screen Shot</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="captured-ss-img text-center">
+          <img src="{{ screenshot }}" alt="" class="img-fluid">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          (click)="save_screenshot('save')">Save</button>
+        <button (click)="save_screenshot('cancel')" type="button" class="btn btn-primary" data-bs-dismiss="modal" >close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="add_to_list" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [formGroup]="addTask">
+        <div class="tym_inn d-flex align-items-center">
+          <h4 class="me-2 mb-0">
+            Time:
+          </h4>
+          <p class="mb-0 me-3 text-nowrap">
+            Start
+          </p>
+          <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time_start" />
+          <!-- <i class=" fa-solid fa-uploadcil clas_icon"></i> -->
+        </div>
+        <div class="tym_inn d-flex align-items-center">
+          <h4 class="me-2 mb-0">
+            Time:
+          </h4>
+          <p class="mb-0 me-3 text-nowrap">
+            End
+          </p>
+          <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time_end" />
+          <!-- <i class=" fa-solid fa-uploadcil clas_icon"></i> -->
+        </div>
+        <div class="comments_food mt-4">
+          <h4 class="itms_mk">Title</h4>
+          <textarea name="" class="form-control" formControlName="title" rows="5"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="save_addTask()">Save</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="marker" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do You Want to mark this task as Completed?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          (click)="editNannyScheduleTask('complete')">Yes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="editNannyScheduleTask('pending')">No</button>
+      </div>
+    </div>
+  </div>
+</div>

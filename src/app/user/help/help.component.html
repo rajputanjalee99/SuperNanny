@@ -1,0 +1,323 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+  <app-header [data]="title"></app-header>
+    <!-- Navbar -->
+    <!-- End Navbar -->
+    <div class="container-fluid py-4 bg-dull my-4">
+        <!-- <h6 class="text-grey">The FAQs</h6> -->
+        <h1 class="mb-3"> Help Centre</h1>
+        <h6 class="text-grey">Everything you need to know about the booking</h6>
+    </div>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-xl-12">
+                <h6>Recent Bookings</h6>
+                <div class="card mb-3">
+                 
+                  <div class="card">
+                    <div class="card-body">
+        
+                      <div class="table-responsive">
+                        <table class="table text-center align-items-center mb-0">
+                          <thead>
+                            <tr>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Parent Name</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Date
+                              </th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Time
+                              </th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                View</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                  Send Querie</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let element of this.bookingList;let i = index">
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">{{i + 1 + offset}}</span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">{{element?.UserDetails?.name }} </span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">{{element?.booking_slots[0]?.booking_start_date | date}}</span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">{{element?.booking_slots[0]?.booking_start_time | timeFormate}}</span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold text-danger">{{element?.nanny_status}}</span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">
+                                  <div  >
+                                    <a routerLink="/user/booking-view/{{element._id}}" class="me-3"><i class="fas fa-eye" ></i></a>
+                                   
+                                </div>
+                                
+                                </span>
+                              </td>
+                              <td class="align-middle text-center text-sm">
+                                <span class="text-xs font-weight-bold">
+                                  <div >
+                                    <a  data-bs-target="#exampleModal" class="fa fa-reply-all"
+                                    data-bs-toggle="modal" (click)="viewButton(element?._id,element?.booking_slots[0]?.booking_start_date,element?.booking_slots[0]?.booking_start_time)" class=""><i class="fas fa-reply" ></i></a>
+                                </div>
+                                
+                                </span>
+                              </td>
+                              
+                            </tr>
+                            <!-- <tr >*No Transactions Found</tr> -->
+                          </tbody>
+                        </table>
+                    
+                          <!-- <mat-paginator   [length]="totalRecord"
+                          [pageSize]="this.limit" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginationOptionChange($event)"
+                          ></mat-paginator> -->
+                      </div>
+        
+        
+        
+        
+        
+        
+                     
+                          
+                    </div>
+                </div>
+                <!-- <ng-container *ngIf="this.bookingDetail?.booking_type=='long_term'">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="order-detail mt-3">
+                        <div class="side-lie">
+                          <div class="top-btm-content">
+                            <div class="top-div">
+                              <div>
+                                <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                                  date}}</p>
+                                <button class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_start_time
+                                  | timeFormate}}</button>
+                              </div>
+                              <div class="w-100 text-center">
+                                <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_month }} months</p>
+                                <div class="border-top-gredient"></div>
+                                <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_start_date | date}}
+                                </p>
+                              </div>
+                              <div>
+                                <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_expire_date
+                                  | date}}</p>
+                                <button
+                                  class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_expire_time |
+                                  timeFormate}}</button>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">
+                                <h6 class="m-0">
+                                  <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                                    class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                  this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                                  <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                                    class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                  this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                                  <i *ngIf="this.bookingDetail?.UserDetails?.role == 'parent'"
+                                    class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                  this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                                </h6>
+                              </div>
+                            </div>
+                            <div class="bottom-div">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                
+
+
+
+                    <ng-container *ngIf="this.bookingDetail?.booking_type=='multi_days'">
+  <div class="col-xl-6 media_mb" *ngFor="let booking of this.bookingDetail?.booking_slots">
+    <div class="card">
+      <div class="card-body">
+        <div class="order-detail mt-3">
+          <div class="side-lie">
+            <div class="top-btm-content">
+              <div class="top-div">
+                <div>
+                  <p class="m-0 text-dark weight-700">{{booking?.booking_start_date | date}}</p>
+                  <button class="btn btn-light m-0 p-2">{{this.booking?.booking_start_time |
+                    timeFormate}}</button>
+                </div>
+                <div class="w-100 text-center">
+                  <p class="m-0 font-s-12  text-grey weight-700">{{booking?.booking_hours}} hours</p>
+                  <div class="border-top-gredient"></div>
+                  <p class="m-0 font-s-12  text-grey weight-700">{{booking?.booking_start_date | date}}</p>
+                </div>
+                <div>
+                  <p class="m-0 text-dark weight-700">{{this.booking?.booking_start_date | date}}</p>
+                  <button class="btn btn-light m-0 p-2">{{booking.booking_expire_time | timeFormate}}</button>
+                </div>
+              </div>
+              <div>
+                <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">sads
+                  <h6 class="m-0">
+                    <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                      class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i>s {{
+                    this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                    <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                      class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> ss{{
+                    this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                    <i *ngIf="this.bookingDetail?.UserDetails?.role=='parent'"
+                      class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> sss{{
+                    this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                  </h6>
+                </div>
+              </div>
+              <div class="bottom-div">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+                    </ng-container>
+                    
+
+                    <ng-container *ngIf="this.bookingDetail?.booking_type=='one_time'">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="order-detail mt-3">
+                            <div class="side-lie">
+                              <div class="top-btm-content">
+                                <div class="top-div">
+                                  <div>
+                                    <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                                      date}}</p>
+                                    <button class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_start_time
+                                      | timeFormate}}</button>
+                                  </div>
+                                  <div class="w-100 text-center">
+                                    <p class="m-0 font-s-12  text-grey weight-700">
+                                      {{this.bookingDetail?.booking_slots[0]?.booking_hours }} hour</p>
+                                    <div class="border-top-gredient"></div>
+                                    <p class="m-0 font-s-12  text-grey weight-700">{{this.bookingDetail?.booking_start_date | date}}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <p class="m-0 text-dark weight-700">{{this.bookingDetail?.booking_slots[0]?.booking_start_date |
+                                      date}}</p>
+                                    <button
+                                      class="btn btn-light m-0 p-2">{{this.bookingDetail?.booking_slots[0]?.booking_expire_time |
+                                      timeFormate}}</button>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div class="location-order mt-5 mb-4 pt-3 bg-light-pink ps-3 pe-3 ms-2 text-center">
+                                    <h6 class="m-0">
+                                      <i *ngIf="this.bookingDetail?.UserDetails?.role=='supervisor'"
+                                        class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                      this.bookingDetail?.UserDetails?.supervisorData?.address }}
+                                      <i *ngIf="this.bookingDetail?.UserDetails?.role=='nanny'"
+                                        class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                      this.bookingDetail?.UserDetails?.nannyData?.address?.complete_address }}
+                                      <i *ngIf="this.bookingDetail?.UserDetails?.role=='parent'"
+                                        class="fas fa-map-marker-alt text-pink" aria-hidden="true"></i> {{
+                                      this.bookingDetail?.UserDetails?.parentInfo?.address?.complete_address }}
+                                    </h6>
+                                  </div>
+                                </div>
+                                <div class="bottom-div">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container> -->
+                    
+                
+            </div>
+            
+        </div>
+    </div>
+    </div>
+      <div class="container-fluid py-5">
+          <section class="py-4">
+            
+                <div class="row">
+                  <div class="col-md-8 mx-auto text-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nemo aperiam assumenda </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-10 mx-auto">
+                    <div class="accordion" id="accordionRental">
+                      <div class="accordion-item mb-3" *ngFor="let  faq of this.faq;let i=index">
+                        <h5 class="accordion-header"  [id]="'heading-' + i">
+                          <button class="accordion-button border-bottom font-weight-bold" (click)="selectAccordian(i)" type="button" [attr.data-bs-target]="'#collapse-' + i" [attr.aria-expanded]="faq.isOpen" [attr.aria-controls]="'collapse-' + i" (click)="faq.isOpen = !faq.isOpen">
+                          <strong>{{faq.question}}</strong>
+                            <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0">-</i>
+                            <i class="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0">-</i>
+                          </button>
+                        </h5>
+                        <div id="collapseOne" class="accordion-collapse collapse show" [id]="'collapse-' + i" class="accordion-collapse collapse" [class.show]="faq.isOpen" [attr.aria-labelledby]="'heading-' + i" data-bs-parent="#accordionExample">
+                          <div class="accordion-body text-sm opacity-8">
+                            {{faq.answer}}
+                          </div>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+              
+            </section>
+            
+            
+        </div>
+      
+  </main>
+
+
+
+  <div class="modal fade" data-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send Querie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="Querie">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Was_anyone_injured:</label>
+                        <input type="text"  formControlName="was_anyone_injured" class="form-control" id="recipient-name" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name1" class="col-form-label">Additional_details:</label>
+                        <input type="text" formControlName="additional_details" class="form-control" id="recipient-name1" >
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="sendReport()"
+                        [disabled]="!this.Querie.valid">Send Reply</button>
+                </div>
+          </form>
+        </div>
+    </div>
+</div>

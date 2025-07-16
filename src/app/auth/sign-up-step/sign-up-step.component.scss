@@ -1,0 +1,73 @@
+::ng-deep .mat-horizontal-stepper-header-container {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+::ng-deep ngx-dropzone{
+    height: 80px !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline{
+    background-color: transparent !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple{
+    opacity: 0 !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding-bottom: 0px !important;
+}
+.upload-input{
+    border: 1px dashed #c1c1c1;
+    position: relative;
+    height: 100px;
+    width: 100%;
+    .docs-upload-show{
+        background-color: #fff;
+        img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+            
+        }
+       .cross-button{
+        position: absolute;
+        z-index: 99999;
+        cursor: pointer;
+        top: 4px;
+        right: 8px;
+
+       }
+    }
+    .text-align-input{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    input{
+        width: 100% !important;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        opacity: 0;
+
+    }
+}
+.docs-name{
+    display: flex;
+    gap: 30px;
+    white-space: nowrap;
+    cursor: pointer;
+    
+}
+.top-docs{
+    position: relative;
+    z-index: 999999999;
+}

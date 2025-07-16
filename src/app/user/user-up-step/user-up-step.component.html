@@ -1,0 +1,283 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+  <app-header [data]="title"></app-header>
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image:linear-gradient(102deg, #e9398c85, #02c4da87), url('..//assets/img/nanny23.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <img src="../assets/img/logos/superLOgo.png" class="logo-top position-absolute" alt="">
+
+            <h5 class="text-white mb-2 mt-5">Need Changes In Your Profile Information?</h5>
+            <!-- <p class="text-lead text-white">Please refill the below form and submit your profile change request. Your  request will be reviewed by the our team and we might contact you to verify your provided data too. Your request may take up to 24 hour to process.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-10 col-lg-10 col-md-10 mx-auto">
+          <div class="card z-index-0">
+            <div class="card-body pt-0">
+              <form role="form text-left">
+                <mat-stepper [linear]="isLinear" [selectedIndex]="selectedIndex" #stepper>
+                    <mat-step label="Step 1" [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup" (ngSubmit)="submitFirstForm(stepper)">
+                            <div class="mb-3">
+                                <label for="">Enter your address*</label>
+                                <input type="text" oninput="this.value = !this.value.trim() ? this.value.trim() : this.value" formControlName="address" class="form-control" #mapSearchField placeholder="#160, XYZ" aria-label="Name" aria-describedby="email-addon">
+                                <label *ngIf="
+                                    (
+                                      firstFormGroup.get('address')?.touched ||
+                                      firstFormGroup.get('address')?.dirty) &&
+                                      firstFormGroup.get('address')?.invalid &&
+                                      firstFormGroup.get('address')?.errors?.required
+                                  " class="text-danger">
+                                  *This field is required
+                                </label>
+                              </div>
+                            
+                            <div class="mb-3">
+                                <label for="">Pin address*</label>
+                                <google-map
+                                height="400px"
+                                width="100%"
+                                [center]="center"
+                                (mapClick)="addMarker($event)"
+                                >
+
+                                  <map-marker *ngFor="let markerPosition of markerPositions"
+                                    [position]="markerPosition"
+                                    [options]="markerOptions"></map-marker>
+
+                                </google-map>
+                                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27376.516587377915!2d75.8649808!3d30.940761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1666778811388!5m2!1sen!2sin" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                            </div>
+
+                            <div class="mb-3">
+                              <mat-form-field class="example-chip-list w-100 form-control" >
+                                <mat-label>Languages Spoken*</mat-label>
+                                <mat-chip-list #chipList aria-label="Language selection">
+                                  <mat-chip *ngFor="let lang of selectedLanguages" (removed)="remove(lang)">
+                                    {{lang.name}}
+                                    <button matChipRemove>
+                                      <mat-icon>cancel</mat-icon>
+                                    </button>
+                                  </mat-chip>
+                                  <input oninput="this.value = !this.value.trim() ? this.value.trim() : this.value" placeholder="Search..."
+                                          formControlName="languages_search"
+                                         [matChipInputFor]="chipList"
+                                         [matChipInputAddOnBlur]="addOnBlur"
+                                         (matChipInputTokenEnd)="add($event)"
+                                         [matAutocomplete]="auto">
+                                </mat-chip-list>
+
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                  <mat-option *ngFor="let lang of filteredLanguages | async" [value]="lang.name">
+                                    {{lang.name}}
+                                  </mat-option>
+                                </mat-autocomplete>
+
+                              </mat-form-field>
+                              <label *ngIf="
+                                    (
+                                      firstFormGroup.get('languages_spoken')?.touched ||
+                                      firstFormGroup.get('languages_spoken')?.dirty) &&
+                                      firstFormGroup.get('languages_spoken')?.invalid &&
+                                      firstFormGroup.get('languages_spoken')?.errors?.required
+                                  " class="text-danger">
+                                  *This field is required
+                              </label>
+                              
+                            </div>
+
+                            <div class="mb-3">
+                              <div class="form-check form-switch ps-0">
+                                  <input class="form-check-input ms-auto" type="checkbox" formControlName="has_children" #has_children>
+                                  <label class="form-check-label text-body ms-3 text-truncate mb-0" for="has_children">Has Children</label>
+                              </div>
+                            </div>
+
+                            <div class="mb-3" *ngIf="firstFormGroup.get('has_children')?.value == true">
+                                <input type="number" formControlName="childrens" min="1" class="form-control" placeholder="2 Children" aria-label="Name" aria-describedby="email-addon">
+                                <label *ngIf="
+                                    (
+                                      firstFormGroup.get('childrens')?.touched ||
+                                      firstFormGroup.get('childrens')?.dirty) &&
+                                      firstFormGroup.get('childrens')?.invalid &&
+                                      firstFormGroup.get('childrens')?.errors?.min
+                                  " class="text-danger">
+                                  *Minimum 1 children is required
+                              </label>
+
+                              <label *ngIf="
+                                    (
+                                      firstFormGroup.get('childrens')?.touched ||
+                                      firstFormGroup.get('childrens')?.dirty) &&
+                                      firstFormGroup.get('childrens')?.invalid &&
+                                      firstFormGroup.get('childrens')?.errors?.required
+                                  " class="text-danger">
+                                  *This field is required
+                              </label>
+                            
+                              </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch ps-0">
+                                    <input class="form-check-input ms-auto" formControlName="covid_vaccinated" type="checkbox" id="flexSwitchCheckDefault4" checked="">
+                                    <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="flexSwitchCheckDefault4">Covid Vaccinated</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Work Experience*</label>
+                                <textarea name="" oninput="this.value = !this.value.trim() ? this.value.trim() : this.value" formControlName="work_experience" id="" class="form-control" rows="5"></textarea>
+                                <label *ngIf="
+                                    (
+                                      firstFormGroup.get('work_experience')?.touched ||
+                                      firstFormGroup.get('work_experience')?.dirty) &&
+                                      firstFormGroup.get('work_experience')?.invalid &&
+                                      firstFormGroup.get('work_experience')?.errors?.required
+                                  " class="text-danger">
+                                  *This field is required
+                                </label>
+                            </div>
+                            <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Next</button>
+                        </form>
+                    </mat-step>
+                    <mat-step  label="Step 2">
+                        <form [formGroup]="secondFormGroup" (ngSubmit)="submitSecondForm(stepper)">
+                            <div class="mb-3">
+                                <label for="">Upload your ID*</label>
+                                <div class="row">
+                                  <div class="col-xl-6">
+                                    <div class="upload-input" >
+                                      <div class="text-align-input" *ngIf="!uploadID.front.filename">
+                                        <h6>Front Side</h6>
+                                      </div>
+                                      <div class="docs-upload-show">
+                                        <div  *ngIf="uploadID.front.filename">
+                                          <img class="size" [src]="uploadID.front.filename" alt="Front Id Image">
+                                        </div>
+                                        <div *ngIf="uploadID.front.filename" (click)="removeUploadId('front')" class="size">
+                                          <span class="fas fa-times cross-button">X</span>
+                                      </div>
+                                        <div *ngIf="!uploadID.front.filename">
+                                          <input type="file" (change)="onSelectFrontFile($event)"class="form-control" >
+                                        </div>
+                                        
+                                      </div>
+
+                                      <label *ngIf="
+                                      (
+                                          secondFormGroup.get('file_1')?.touched ||
+                                          secondFormGroup.get('file_1')?.dirty) &&
+                                          secondFormGroup.get('file_1')?.invalid &&
+                                          secondFormGroup.get('file_1')?.errors?.required
+                                      " class="text-danger">
+                                      *This field is required
+                                    </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-6 mt-2">
+                                    <div class="upload-input" >
+                                      <div class="text-align-input" *ngIf="!uploadID.back.filename">
+                                        <h6>Back Side</h6>
+                                      </div>
+                                      <div class="docs-upload-show">
+                                        <div  *ngIf="uploadID.back.filename">
+                                          <img class="size" [src]="uploadID.back.filename" alt="Back Id Image">
+                                        </div>
+                                        <div *ngIf="uploadID.back.filename" (click)="removeUploadId('back')">
+                                          <span class="fas fa-times cross-button">X</span>
+                                      </div>
+                                        <div *ngIf="!uploadID.back.filename">
+                                          <input type="file" (change)="onSelectBackFile($event)"  class="form-control" >
+                                        </div>
+                                        
+                                      </div>
+                                      <label *ngIf="
+                                        (
+                                            secondFormGroup.get('file_2')?.touched ||
+                                            secondFormGroup.get('file_2')?.dirty) &&
+                                            secondFormGroup.get('file_2')?.invalid &&
+                                            secondFormGroup.get('file_2')?.errors?.required
+                                        " class="text-danger">
+                                        *This field is required
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <ngx-dropzone (change)="onSelect($event)">
+                                    <ngx-dropzone-label>Upload ID</ngx-dropzone-label>
+                                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone> -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Upload police verification*</label>
+                                <div class="row">
+                                  <div class="col-xl-12">
+                                    <div class="upload-input" style="background: url('');">
+                                      <div class="text-align-input" *ngIf="!uploadPoliceVerification.filename">
+                                        <h6>Verification Document</h6>
+                                      </div>
+
+                                      <!-- <div class="text-align-input" *ngIf="uploadPoliceVerification.filename">
+                                        <div class="top-docs">
+                                          <h6 class="docs-name">{{ uploadPoliceVerification.filename }} <span> <div *ngIf="uploadPoliceVerification.filename" (click)="removePoliceVerification()">
+                                            <span class="fas fa-times cross-button text-danger">X</span>
+                                          </div></span></h6>
+                                        </div>
+                                      </div> -->
+                                      <div class="docs-upload-show">
+                                      <div  *ngIf="this.uploadPoliceVerification.filename">
+                                        <img class="size1" [src]="this.uploadPoliceVerification.filename" alt="Back Id Image">
+                                      </div>
+                                      <div *ngIf="this.uploadPoliceVerification.filename" (click)="removePoliceVerification()">
+                                        <span class="fas fa-times cross-button">X</span>
+                                    </div>
+                                      <div *ngIf="!this.uploadPoliceVerification.filename">
+                                        <input type="file"  (change)="onSelectVerififcationFile($event)" class="form-control">
+                                      </div>
+
+                                    </div>
+
+                                     
+                                      <label *ngIf="
+                                        (
+                                            secondFormGroup.get('file_3')?.touched ||
+                                            secondFormGroup.get('file_3')?.dirty) &&
+                                            secondFormGroup.get('file_3')?.invalid &&
+                                            secondFormGroup.get('file_3')?.errors?.required
+                                        " class="text-danger">
+                                        *This field is required
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <ngx-dropzone (change)="onSelect($event)">
+                                    <ngx-dropzone-label>Upload ID</ngx-dropzone-label>
+                                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone> -->
+                            </div>
+                            
+                            <div>
+                              <button type="button" class="btn bg-gradient-info me-3 mt-4 mb-0" mat-button matStepperPrevious>Back</button>
+                              <button class="btn bg-gradient-info  mt-4 mb-0 float-end" mat-button type="submit">Submit</button>
+                            </div>
+                          </form>
+                    </mat-step>
+                  </mat-stepper>
+                  
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>

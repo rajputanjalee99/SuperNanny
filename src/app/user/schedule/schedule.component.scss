@@ -1,0 +1,30 @@
+.Schedule-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .date-data{
+        margin: auto;
+        padding: 4px  13px;
+        border-radius: 9px;
+        text-align: center;
+        border-radius: 9px;
+        border: 1px solid rgba(0, 0, 0, 0.164);
+    }
+    .date-data.active{
+        background-color: rgb(233 57 140);
+        color: aliceblue;
+        
+    }
+}
+
+    .schedule-content{
+        display: flex;
+        background: aliceblue;
+        padding: 10px;
+        border-radius: 16px;
+        margin-block: 20px;
+
+    align-items: center;
+    justify-content: space-between;
+}

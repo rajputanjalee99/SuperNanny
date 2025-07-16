@@ -1,0 +1,37 @@
+<div class="wrapperAlert">
+
+    <div class="contentAlert">
+  
+      <div class="topHalf">
+  
+        <p>
+           <img class="img-fluid Custom-Images" src="../assets/img/wall-clock.png" alt="">
+        </p>
+        <h1 class="text-white">{{this.supervisorData?.user?.admin_approval == 'disapproved' ? 'Profile Disapproved By Admin' :'Pending Approval'}}</h1>
+  
+       <ul class="bg-bubbles">
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+         <li></li>
+       </ul>
+      </div>
+  
+      <div class="bottomHalf">
+        <h3>{{(this.supervisorData?.user?.admin_approval =='disapproved' && this.supervisorData?.superVisorInfo?.note) ? 'Disapproved Reason' :''}}</h3>
+        <p>{{(this.supervisorData?.user?.admin_approval =='disapproved' && this.supervisorData?.superVisorInfo?.note) ?  this.supervisorData?.superVisorInfo?.note : 'Please wait until Admin review your profile....'}}</p>
+  
+        <button id="alertMO"  class="me-3"(click)="logout()">Log Out</button>
+        <button id="alertMO1"  type="button" *ngIf="this.supervisorData?.user?.admin_approval === 'disapproved'" (click)="navigate()">Resubmit Profile</button>
+  
+      </div>
+  
+    </div>        
+  
+  </div>

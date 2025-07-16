@@ -1,0 +1,83 @@
+.uplod-btn {
+    width: 100px;
+    padding: 10px;
+    font-size: 10px;
+}
+
+.meal-item-input {
+    min-width: 50px;
+}
+
+.hi{
+    border-bottom: 2px solid #d91481
+}
+.overflow_y{
+    height: 470px;
+    overflow-y: overlay;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.display_overflow_class{
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap !important;
+    overflow: auto;
+}
+
+/* width */
+.display_overflow_class::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .display_overflow_class::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .display_overflow_class::-webkit-scrollbar-thumb {
+    background: rgb(184, 183, 183); 
+  }
+  
+  /* Handle on hover */
+  .display_overflow_class::-webkit-scrollbar-thumb:hover {
+    background: rgb(121, 119, 119); 
+  }
+
+  .overflow_anywhere{
+    overflow-wrap: anywhere;
+  }
+
+  .main-content .form-control.focus:focus {
+    border: 0px solid #d2d6da !important;
+    box-shadow: unset !important;
+}
+
+.w_20{
+  width: 20%;
+}
+
+.margin_0{
+  margin: 5px 0 !important;
+  padding: 10px !important;
+}
+
+.btn_design_set{
+  position: absolute;
+    top: 33px;
+    right: 20px;
+}
+.remove_btnn_minus {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.input_btn_design{
+  position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 96px;
+    opacity: 0;
+}

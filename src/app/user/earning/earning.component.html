@@ -1,0 +1,512 @@
+<aside>
+  <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+  <app-header [data]="title"></app-header>
+  <div class="container-fluid my-4">
+    <div class="div_ern mb-3">
+      <h4>Earning</h4>
+    </div>
+    <div class="row">
+      <div class="col-xl-5 media_mb">
+        <div class="card bg-gradient-primary">
+          <div class="card-body total-earning">
+            <div class="earning-main">
+              <div class="total-earning-sub">
+                <div>
+                  <p class="text-white">Total Earning</p>
+                </div>
+                <div>
+                  <h3 class="text-white">₹ {{fixNumber(earing_data?.totalEarning)}}</h3>
+                </div>
+                <!-- <div class="bt-detail">
+                  <span>
+                    <span class="clr-dark-chng text-white"> <i class="fa fa-caret-up" aria-hidden="true"></i> 12.225
+                      (12%) </span>
+                    <span class="clr-grey-chng font-s-14 text-white">(Last Month)</span></span>
+                </div> -->
+              </div>
+              <div class="earning-main-cart">
+                <img src="/assets/img/line.png" alt="">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7 my-2">
+        <div class="row h-100">
+          <div class="col-12 col-sm-3 col-md-3 media_mb col-xl-3 ">
+            <div class="sub-earning-card pt-3">
+              <div class="earning-card-img">
+                <img src="/assets/img/pie3.png" alt="">
+              </div>
+              <div>
+                <p class="weight-600 mb-2">{{earing_data?.bookingCompleted}}</p>
+                <p class="text-grey text-sm">Completed bookings</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-3 col-md-3 media_mb col-xl-3">
+            <div class="sub-earning-card pt-3">
+              <div class="earning-card-img">
+                <img src="/assets/img/pie2.png" alt="">
+              </div>
+              <div>
+                <p class="weight-600 mb-2">₹ {{fixNumber(earing_data?.averageBookingAmount)}}</p>
+                <p class="text-grey text-sm">Average bookings</p>
+              </div>
+            </div>
+          </div>
+          <div class=" col-12 col-sm-3 col-md-3 media_mb col-xl-3">
+            <div class="sub-earning-card pt-3">
+              <div class="earning-card-img">
+                <img src="/assets/img/pie1.png" alt="">
+              </div>
+              <div>
+                <p class="weight-600 mb-2">₹ {{fixNumber(earing_data?.totalUnpaid?.totalAmount ? earing_data?.totalUnpaid?.totalAmount : 0)}}</p>
+                <p class="text-grey text-sm">UnPaid Amount</p>
+              </div>
+            </div>
+          </div>
+          <div class=" col-12 col-sm-3 col-md-3 media_mb col-xl-3">
+            <div class="sub-earning-card pt-3">
+              <div class="earning-card-img">
+                <img src="/assets/img/pie1.png" alt="">
+              </div>
+              <div>
+                <p class="weight-600 mb-2">₹ {{fixNumber(earing_data?.totalCurrentMonth?.totalAmount ? earing_data?.totalCurrentMonth?.totalAmount : 0)}}</p>
+                <p class="text-grey text-sm">Earned Current Month</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid my-4">
+    <h5>My Payments</h5>
+  </div>
+  <div class="container-fluid mb-5">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body p-1">
+            <div class="table-responsive">
+              <table class="table text-center align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer
+                      Name</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Amount</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      Transaction Id</th>
+                    <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nanny</th> -->
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of payment_data;let i = index">
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{i+1}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{payment?.createdAt | date:'longDate' }}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{payment?.createdAt | date:'shortTime'}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{payment?.bank_info?.account_holder_name}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{getAmount(payment?.amount)}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">{{payment?.razor_response?.id}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold text-success">{{payment?.payment_status}}</span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="payment_data.length === 0">*No Transactions Found</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid my-4 d-flex justify-content-between align-items-center ">
+    <!-- <div class="d-flex align-items-center justify-content-between w-100">
+      <h5>Bank Account</h5>
+      <button class="btn bg-gradient-info" data-bs-toggle="modal" data-bs-target="#add_bank">
+        <i class=" fa-solid fa-plus"></i> Add Bank
+      </button>
+    </div> -->
+
+    <div class="card " *ngIf="!bank_account_details?.ifsc_code" class="n-btn bank-content">
+      <div class="card-body px-4 py-2">
+        <div class="bank-main">
+          <button type="button"  class="btn"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <h6 class="mb-0 ">+ Add Bank Account</h6>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container-fluid mb-3">
+    <div class="row ">
+      <div class="col-xl-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="bank-main">
+              <div class="bank-icon">
+                <img src="/assets/img/icici.png" alt="">
+              </div>
+              <div class="bank-content">
+                <h6 class="mb-1">ICICI Bank Account</h6>
+                <p class="text-grey m-0 text-sm">Savings Account</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="container-fluid mb-3" *ngIf="bank_account_details?.ifsc_code">
+    <div class="row" >
+      <div class="col-xl-4" >
+        <div class="card mb-4">
+          <div class="card-body all_nn">
+            <div class="d-flex back_dtl justify-content-between align-items-center mb-2">
+              <h4 class="mb-0">Bank Account Detail</h4>
+              <div>
+                <div data-bs-toggle="modal" data-bs-target="#account_numbr">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <!-- <div  data-bs-toggle="modal" data-bs-target="#deleteLabel" (click)="getID(bank_account?._id)">
+                <i class="fa-solid fa-trash"></i>
+              </div> -->
+              </div>
+            </div>
+            <div class="bank-content d-flex">
+              <p class="me-2 mb-0">Bank Name</p>
+              <p class="mb-0">: {{bank_account_details?.bank_name}}</p>
+            </div>
+            <div class="bank-main">
+              <div class="bank-content d-flex">
+                <p class="me-2 mb-0">Account Number</p>
+                <p class="mb-0">: {{bank_account_details?.account_number}}</p>
+              </div>
+            </div>
+            <div class="bank-content d-flex">
+              <p class="me-2 mb-0">Bank Holder Name</p>
+              <p class="mb-0">: {{bank_account_details?.account_holder_name}}</p>
+            </div>
+            <div class="bank-content d-flex">
+              <p class="me-2 mb-0">IFSC Code</p>
+              <p class="mb-0">: {{bank_account_details?.ifsc_code}}</p>
+            </div>
+            <div class="bank-content d-flex">
+              <p class="me-2 mb-0">Account Type</p>
+              <p class="mb-0">: {{bank_account_details?.account_type}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!bank_account_details?.ifsc_code">No Bank Account Added</div>
+    </div>
+  </div>
+</main>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Bank Account</h5>
+        <button #refModal2 type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="earring">
+          <form action="" [formGroup]="addBankAccount">
+            <div class="mb-3">
+              <label for="form-control">
+                Account Number
+              </label>
+              <input type="email" formControlName="email" required class="form-control" placeholder="Account Number"
+                aria-label="Email" aria-describedby="email-addon" formControlName="account_number">
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('account_number')?.touched || addBankAccount.get('account_number')?.dirty) && addBankAccount.get('account_number')?.invalid && addBankAccount.get('account_number')?.errors?.required"
+              class="text-danger">
+              Account Number is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Name
+              </label>
+              <input type="email" formControlName="email" required class="form-control" placeholder="Bank Name"
+                aria-label="Email" aria-describedby="email-addon" formControlName="bank_name">
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('bank_name')?.touched || addBankAccount.get('bank_name')?.dirty) && addBankAccount.get('bank_name')?.invalid && addBankAccount.get('bank_name')?.errors?.required"
+              class="text-danger">
+              Bank Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Holder Name
+              </label>
+              <input type="email" formControlName="email" required class="form-control" placeholder="Bank Holder Name"
+                aria-label="Email" aria-describedby="email-addon" formControlName="bank_holder_name">
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('bank_holder_name')?.touched || addBankAccount.get('bank_holder_name')?.dirty) && addBankAccount.get('bank_holder_name')?.invalid && addBankAccount.get('bank_holder_name')?.errors?.required"
+              class="text-danger">
+              Bank Holder Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                IFSC Code
+              </label>
+              <input type="email" formControlName="email" required class="form-control" placeholder="IFSC Code"
+                aria-label="Email" aria-describedby="email-addon" formControlName="ifsc_code">
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('ifsc_code')?.touched || addBankAccount.get('ifsc_code')?.dirty) && addBankAccount.get('ifsc_code')?.invalid && addBankAccount.get('ifsc_code')?.errors?.required"
+              class="text-danger">
+              IFSC code is required</div>
+            <div
+              *ngIf="(addBankAccount.get('ifsc_code')?.touched || addBankAccount.get('phone')?.dirty) && addBankAccount.get('ifsc_code')?.invalid && addBankAccount.get('ifsc_code')?.errors?.minlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('ifsc_code')?.touched || addBankAccount.get('phone')?.dirty) && addBankAccount.get('ifsc_code')?.invalid && addBankAccount.get('ifsc_code')?.errors?.maxlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+
+            <div class="mb-3">
+              <label for="form-control">
+                Account Type
+              </label>
+              <input type="email" formControlName="email" required class="form-control" placeholder="Account Type"
+                aria-label="Email" aria-describedby="email-addon" formControlName="account_type">
+            </div>
+            <div
+              *ngIf="(addBankAccount.get('account_type')?.touched || addBankAccount.get('account_type')?.dirty) && addBankAccount.get('account_type')?.invalid && addBankAccount.get('account_type')?.errors?.required"
+              class="text-danger">
+              Account Type is required</div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveAdd()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="account_numbr" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Bank Account</h5>
+      </div>
+      <div class="modal-body">
+        <div class="earring">
+          Are You Want to delete this Bank bank_account?
+         </div>
+      </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="deleteBankAccount()">Delete</button>
+      </div>  
+    </div>  
+  </div>  
+</div>   -->
+
+<!-- <div class="modal fade" id="add_bank" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Bank Account</h5>
+        <button #refModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="earring">
+          <form action="" [formGroup]="editBankAccount">
+            <div class="mb-3">
+              <label for="form-control">
+                Account Number
+              </label>
+              <input type="email" required class="form-control" placeholder="Account Number" aria-label="Email"
+                aria-describedby="email-addon" formControlName="account_number">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('account_number')?.touched || editBankAccount.get('account_number')?.dirty) && editBankAccount.get('account_number')?.invalid && editBankAccount.get('account_number')?.errors?.required"
+              class="text-danger">
+              Account Number is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Name
+              </label>
+              <input type="email" required class="form-control" placeholder="Bank Name" aria-label="Email"
+                aria-describedby="email-addon" formControlName="bank_name">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('bank_name')?.touched || editBankAccount.get('bank_name')?.dirty) && editBankAccount.get('bank_name')?.invalid && editBankAccount.get('bank_name')?.errors?.required"
+              class="text-danger">
+              Bank Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Holder Name
+              </label>
+              <input type="email" required class="form-control" placeholder="Bank Holder Name" aria-label="Email"
+                aria-describedby="email-addon" formControlName="bank_holder_name">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('bank_holder_name')?.touched || editBankAccount.get('bank_holder_name')?.dirty) && editBankAccount.get('bank_holder_name')?.invalid && editBankAccount.get('bank_holder_name')?.errors?.required"
+              class="text-danger">
+              Bank Holder Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                IFSC Code
+              </label>
+              <input type="email" required class="form-control" placeholder="IFSC Code" aria-label="Email"
+                aria-describedby="email-addon" formControlName="ifsc_code">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('ifsc_code')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.required"
+              class="text-danger">
+              IFSC code is required</div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('phone')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.minlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('phone')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.maxlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+            <div class="mb-3">
+              <label for="form-control">
+                Account Type
+              </label>
+              <input type="email" required class="form-control" placeholder="Account Type" aria-label="Email"
+                aria-describedby="email-addon" formControlName="account_type">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('account_type')?.touched || editBankAccount.get('account_type')?.dirty) && editBankAccount.get('account_type')?.invalid && editBankAccount.get('account_type')?.errors?.required"
+              class="text-danger">
+              Account Type is required</div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveEdit()">Add</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="modal fade" id="account_numbr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Bank Account</h5>
+        <button #refModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="earring">
+          <form action="" [formGroup]="editBankAccount">
+            <div class="mb-3">
+              <label for="form-control">
+                Account Number
+              </label>
+              <input type="email" required class="form-control" placeholder="Account Number" aria-label="Email"
+                aria-describedby="email-addon" formControlName="account_number">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('account_number')?.touched || editBankAccount.get('account_number')?.dirty) && editBankAccount.get('account_number')?.invalid && editBankAccount.get('account_number')?.errors?.required"
+              class="text-danger">
+              Account Number is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Name
+              </label>
+              <input type="email" required class="form-control" placeholder="Bank Name" aria-label="Email"
+                aria-describedby="email-addon" formControlName="bank_name">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('bank_name')?.touched || editBankAccount.get('bank_name')?.dirty) && editBankAccount.get('bank_name')?.invalid && editBankAccount.get('bank_name')?.errors?.required"
+              class="text-danger">
+              Bank Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                Bank Holder Name
+              </label>
+              <input type="email" required class="form-control" placeholder="Bank Holder Name" aria-label="Email"
+                aria-describedby="email-addon" formControlName="bank_holder_name">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('bank_holder_name')?.touched || editBankAccount.get('bank_holder_name')?.dirty) && editBankAccount.get('bank_holder_name')?.invalid && editBankAccount.get('bank_holder_name')?.errors?.required"
+              class="text-danger">
+              Bank Holder Name is required</div>
+            <div class="mb-3">
+              <label for="form-control">
+                IFSC Code
+              </label>
+              <input type="email" required class="form-control" placeholder="IFSC Code" aria-label="Email"
+                aria-describedby="email-addon" formControlName="ifsc_code">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('ifsc_code')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.required"
+              class="text-danger">
+              IFSC code is required</div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('phone')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.minlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('ifsc_code')?.touched || editBankAccount.get('phone')?.dirty) && editBankAccount.get('ifsc_code')?.invalid && editBankAccount.get('ifsc_code')?.errors?.maxlength"
+              class="text-danger">
+              *IFSC code must be of 11 digit
+            </div>
+            <div class="mb-3">
+              <label for="form-control">
+                Account Type
+              </label>
+              <input type="email" required class="form-control" placeholder="Account Type" aria-label="Email"
+                aria-describedby="email-addon" formControlName="account_type">
+            </div>
+            <div
+              *ngIf="(editBankAccount.get('account_type')?.touched || editBankAccount.get('account_type')?.dirty) && editBankAccount.get('account_type')?.invalid && editBankAccount.get('account_type')?.errors?.required"
+              class="text-danger">
+              Account Type is required</div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

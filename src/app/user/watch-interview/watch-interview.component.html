@@ -1,0 +1,466 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+    <app-header [data]="title"></app-header>
+    <div class="container-fluid py-4 ">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-sm-10 col-md-10 media_mb my-3">
+                <div class="card">
+                    <div class="card-body p-1">
+
+                        <div id="jitsi-iframe"></div>
+
+
+                        <div class="cptr-ss">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-xl-5 col-sm-10 col-md-10 my-3">
+            <div class="card overflow_y">
+                 <div class="todo-list">
+                <p class="m-0">{{todaydate()}}</p>
+                </div> 
+                
+            </div>
+            </div> -->
+
+
+
+        </div>
+    </div>
+    <div class="container-fluid py-1">
+        <div class="card">
+            <div class="card-body ">
+                <div class="justify-content-center ">
+
+                    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link font_15 " id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">Nanny Profile</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link font_15 active" id="pills-contact-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+                                aria-selected="false">Customer detail</button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="tab-content" id="pills-tabContent">
+
+                    <div class="tab-pane " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="container-fluid py-4 px-0">
+
+
+                            <div class="row gx-4 bg-light-pink py-2">
+                                <div class="col-auto">
+                                    <div class="avatar avatar-xl position-relative">
+
+                                        <img [src]="env+profile?.nannyInfo?.take_photo" (error)="onImgError($event)"
+                                            alt="Nanny Profile Image" class="w-100 border-radius-lg shadow-sm">
+                                    </div>
+                                </div>
+                                <div class="col-auto my-auto">
+                                    <div class="h-100">
+                                        <h5 class="mb-1 font_14">
+                                            {{ profile && profile.name }}
+                                        </h5>
+                                        <div class=" live-star d-flex align-items-center">
+                                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==1 || getRating(profile?.nannyInfo?.avg_rating)==2 || getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5"
+                                                class="fa fa-star" aria-hidden="true"></i>
+                                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==2 || getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5"
+                                                class="fa fa-star" aria-hidden="true"></i>
+                                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==3 || getRating(profile?.nannyInfo?.avg_rating)==4"
+                                                class="fa fa-star" aria-hidden="true"></i>
+                                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==4 || getRating(profile?.nannyInfo?.avg_rating)==5"
+                                                class="fa fa-star" aria-hidden="true"></i>
+                                            <i *ngIf="getRating(profile?.nannyInfo?.avg_rating)==5" class="fa fa-star"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                        <p class="mb-0 mt-2 font-weight-bold text-sm">
+                                            <svg *ngIf="profile && profile.gender && profile.gender" width="10"
+                                                height="17" viewBox="0 0 109 171" fill="none">
+                                                <path
+                                                    d="M54.5 0C24.4432 0 0 23.0219 0 51.3308C0 76.7139 19.6836 97.8023 45.4167 101.892V128.327H18.1667V145.437H45.4167V171H63.5833V145.437H90.8333V128.327H63.5833V101.892C89.3164 97.7937 109 76.7139 109 51.3308C109 23.0219 84.5567 0 54.5 0ZM54.5 85.5513C34.4622 85.5513 18.1667 70.2034 18.1667 51.3308C18.1667 32.4582 34.4622 17.1103 54.5 17.1103C74.5378 17.1103 90.8333 32.4582 90.8333 51.3308C90.8333 70.2034 74.5378 85.5513 54.5 85.5513Z"
+                                                    fill="#757494" />
+                                            </svg>
+                                            {{ profile && profile.gender && profile.gender+", " }} {{ profile &&
+                                            profile.nany_dob &&
+                                            commonService.calculateAgeFromDOB(profile.nany_dob)+" Year old" }}
+                                            <!-- Female, 24 Year old -->
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-4">
+                                <div class="col-12 col-xl-4 media_mb">
+                                    <div class="card h-100">
+                                        <div class="card-header pb-0 p-3">
+                                            <h6 class="mb-0 font_14">About Nanny</h6>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <p class="font-s-12">{{ profile && profile.nannyInfo.about}}</p>
+                                            <ul class="list-group">
+                                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                                                        class="text-dark font_14"></strong>
+                                                    &nbsp; {{ profile && profile.nannyInfo.experience &&
+                                                    profile.nannyInfo.experience+" Years" }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-4 media_mb">
+                                    <div class="card h-100">
+                                        <div class="card-header pb-0 p-3">
+                                            <div class="row">
+                                                <div class="col-md-8 d-flex align-items-center">
+                                                    <h6 class="mb-0 font_14">Profile Information</h6>
+                                                </div>
+                                                <div class="col-md-4 text-end">
+                                                    <a href="javascript:;">
+                                                        <!-- <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i> -->
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <ul class="list-group">
+                                                <li class="list-group-item border-0 ps-0 pt-0 font_12"><strong
+                                                        class="text-dark">Full
+                                                        Name:</strong>
+                                                    &nbsp; {{ profile && profile.nannyInfo.name }}</li>
+                                                <li class="list-group-item border-0 ps-0 font_12"><strong
+                                                        class="text-dark">Mobile:</strong>
+                                                    &nbsp; {{
+                                                    profile && "(+91) "+profile.phone }}</li>
+                                                <li class="list-group-item border-0 ps-0 font_12">
+                                                    <strong class="text-dark">Email:</strong>
+                                                    &nbsp; {{
+                                                    profile && profile.email }}
+                                                </li>
+                                                <li class="list-group-item border-0 ps-0 font_12"><strong
+                                                        class="text-dark">Location:</strong>
+                                                    &nbsp; {{
+                                                    profile && profile.nannyInfo.address &&
+                                                    profile.nannyInfo.address.complete_address }} </li>
+                                                <li class="list-group-item border-0 ps-0 pb-0">
+                                                    <strong class="text-dark font_12">Language:</strong> &nbsp;
+                                                    <ng-container *ngIf="profile && profile.nannyInfo.language_spoken">
+                                                        <span
+                                                            *ngFor="let language of profile.nannyInfo.language_spoken">
+                                                            {{language}}
+                                                        </span>
+                                                    </ng-container>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-4 media_mb">
+                                    <div class="card h-100">
+                                        <div class="card-header pb-0 p-3">
+                                            <h6 class="mb-0">Documents</h6>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <ul class="list-group">
+                                                <li
+                                                    class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                                    <div class="avatar me-3">
+                                                        <img [src]="documents.front.path" alt="kal"
+                                                            class="border-radius-lg shadow"
+                                                            (error)="onImgError($event)">
+                                                    </div>
+                                                    <div
+                                                        class="d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Front Side</h6>
+                                                        <p class="mb-0 text-xs overflow_anywhere">{{
+                                                            documents.front.name }}</p> <button
+                                                            class="btn btn-light m-0 p-2"
+                                                            (click)="downloadImage(documents.front.name)"> <i
+                                                                class="fa fa-download me-sm-1"></i></button>
+
+                                                        <!-- <ul class="list-group">
+                                    <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                    <div class="avatar me-3">
+                                        <img  alt="kal" class="border-radius-lg shadow">
+                                    </div>
+                                    <div class="d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Front Side</h6>
+                                        <p class="mb-0 text-xs">Front name</p>
+                                    </div>
+                                    
+                                    </li>
+                
+                                    <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                    <div class="avatar me-3">
+                                        <img  alt="kal" class="border-radius-lg shadow">
+                                    </div>
+                                    <div class="d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Back Side</h6>
+                                        <p class="mb-0 text-xs">Back Name</p>
+                                    </div>
+                                    </li>
+                                    <li class="list-group-item border-0 d-flex align-items-center px-0">
+                                    <div class="avatar me-3">
+                                        <img  alt="kal" class="border-radius-lg shadow">
+                                    </div>
+                                    <div class="d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Upload Govt. ID Proof</h6>
+                                        <p class="mb-0 text-xs">Documenr</p>
+                                    </div>
+                                    </li>
+                                </ul> -->
+
+                                                    </div>
+                                                </li>
+                                                <li
+                                                    class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                                    <div class="avatar me-3">
+                                                        <img [src]="documents.back.path" alt="kal"
+                                                            class="border-radius-lg shadow"
+                                                            (error)="onImgError($event)">
+                                                    </div>
+                                                    <div
+                                                        class="d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Back Side</h6>
+                                                        <p class="mb-0 text-xs overflow_anywhere">{{ documents.back.name
+                                                            }}</p> <button class="btn btn-light m-0 p-2"
+                                                            (click)="downloadImage(documents.back.name)"> <i
+                                                                class="fa fa-download me-sm-1"></i></button>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item border-0 d-flex align-items-center px-0">
+                                                    <div class="avatar me-3">
+                                                        <img [src]="documents.verificaton.path" alt="kal"
+                                                            class="border-radius-lg shadow"
+                                                            (error)="onImgError($event)">
+                                                    </div>
+                                                    <div
+                                                        class="d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Verification Document</h6>
+                                                        <p class="mb-0 text-xs overflow_anywhere">{{
+                                                            documents.verificaton.name }}</p> <button
+                                                            class="btn btn-light m-0 p-2"
+                                                            (click)="downloadImage(documents.verificaton.name)"> <i
+                                                                class="fa fa-download me-sm-1"></i></button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane  fade show active" id="pills-contact" role="tabpanel"
+                        aria-labelledby="pills-contact-tab">
+                        <div class="container-fluid py-4 px-0">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-8"
+                                            *ngFor="let user of this.InterviewDetails?.user_id?.parentInfo?.parent_app_users">
+                                            <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                                                <div class="avatar avatar-xl position-relative">
+                                                    <img src="{{this.USER_PROFILE1+user?.image}}"
+                                                        (error)="onImgError($event)" alt="profile_image"
+                                                        class="w-100 border-radius-lg shadow-sm">
+                                                </div>
+                                                <div class="">
+                                                    <div class="h-100">
+                                                        <h5 class="mb-1 font_14">
+                                                            {{user?.name}}
+                                                        </h5>
+                                                        <p class="mb-0 mt-2 font-weight-bold text-sm font_12">
+                                                            {{user?.relation}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">Name</label>
+                                                        <input type="text" value={{user?.name}} class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">Contact Number</label>
+                                                        <input type="text" value={{user?.contact_no}}
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <label for="">My govt. ID proof</label>
+                                                        <input type="text" class="form-control"
+                                                            value={{user?.id_proof_type}} readonly>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-6 col-md-6">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <img src={{this.USER_PROFILE1+user?.front_doc}}
+                                                                        (error)="onImgError($event)" alt=""
+                                                                        class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-6 col-md-6">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <img src={{this.USER_PROFILE1+user?.back_doc}}
+                                                                        (error)="onImgError($event)" alt=""
+                                                                        class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid py-4 px-0">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-8 mt-5"
+                                            *ngFor="let user of this.InterviewDetails?.user_id?.parentInfo?.child_details">
+                                            <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                                                <div class="avatar avatar-xl position-relative">
+                                                    <img src="{{this.USER_PROFILE1+user?.image}}"
+                                                        (error)="onImgError($event)" alt="profile_image"
+                                                        class="w-100 border-radius-lg shadow-sm">
+                                                </div>
+                                                <div class="">
+                                                    <div class="h-100">
+                                                        <h5 class="mb-1">
+                                                            {{user?.name}}
+                                                        </h5>
+                                                        <p class="mb-0 mt-2 font-weight-bold text-sm">
+                                                            {{'Child'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">Name</label>
+                                                        <input type="text" value={{user?.name}} class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">DOB</label>
+                                                        <input type="text" [value]=getDob(user?.dob)
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <label for="">gender</label>
+                                                        <input type="text" value={{user?.gender}} class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <label for="">My govt. ID proof</label>
+                                                        <input type="text" class="form-control"
+                                                            value={{user?.id_proof_type}} readonly>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-6 col-md-6">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <img src={{this.USER_PROFILE1+user?.front_doc}}
+                                                                        (error)="onImgError($event)" alt=""
+                                                                        class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-6 col-md-6">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <img src={{this.USER_PROFILE1+user?.back_doc}}
+                                                                        (error)="onImgError($event)" alt=""
+                                                                        class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- When parent Info not found -->
+                                        <div class="col-xl-8 mt-5" *ngIf="!this.InterviewDetails?.user_id?.parentInfo">
+                                            <div class="mb-4 d-flex gap-3 align-items-center bg-light-pink">
+                                                <div class="avatar avatar-xl position-relative">
+                                                    <img src="{{this.USER_PROFILE1+this.InterviewDetails?.user_id?.image}}"
+                                                        (error)="onImgError($event)" alt="profile_image"
+                                                        class="w-100 border-radius-lg shadow-sm">
+                                                </div>
+                                                <div class="">
+                                                    <div class="h-100">
+                                                        <h5 class="mb-1">
+                                                            {{this.InterviewDetails?.user_id?.name}}
+                                                        </h5>
+                                                        <p class="mb-0 mt-2 font-weight-bold text-sm">
+                                                            {{'Parent'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">Name</label>
+                                                        <input type="text"
+                                                            value={{this.InterviewDetails?.user_id?.name}}
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label for="">Email</label>
+                                                        <input type="text"
+                                                            value={{this.InterviewDetails?.user_id?.email}}
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

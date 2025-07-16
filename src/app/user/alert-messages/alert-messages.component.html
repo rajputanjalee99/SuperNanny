@@ -1,0 +1,61 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+    <app-header [data]="title"></app-header>
+    <div class="container-fluid my-4">
+      <h5>All Notification</h5>
+    </div>
+    <div class="container-fluid mb-5">
+      <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body p-1"> 
+                <div class="table-responsive">
+                  <table class="table text-center align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer Name</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let notification of this.notifications;let i = index" >
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{i+1 + this.offset}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{notification?.createdAt | date : 'mediumDate'}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{notification?.createdAt | date : 'h:mm a'}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{notification?.sender_id?.name}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">{{notification?.body}}</span>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="this.notifications?.length === 0">
+                   *Notification List is Empty  
+                  </div>
+                  <mat-paginator #tablepaginator [pageSizeOptions]="[5, 10, 25, 100]"
+                  [length]="totalRecords"
+                  [pageSize]="1"
+                  (page)="paginationOptionChange($event)"
+                   aria-label="Select page of users"
+                   >
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </main>

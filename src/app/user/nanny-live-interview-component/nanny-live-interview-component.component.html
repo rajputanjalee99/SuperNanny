@@ -1,0 +1,328 @@
+
+    <aside>
+        <app-sidebar></app-sidebar>
+    </aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    <!-- Navbar -->
+    <app-header [data]="title"></app-header>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="div_nany mb-4 mt-3">
+        <h4>Nanny Live</h4>
+      </div>
+      <div class="row">
+        <div class="col-xl-4 mb-5"  *ngFor="let nannies_info of liveNanniesList;let i = index">
+            <div class="card">
+                <div class="card-body nanny-live">
+                    <div class="live-video">
+                        <div [id]="'name'+i"></div>
+
+                        <div class="top-header-video">
+                            <p class="m-0">Live</p>
+                        </div> 
+                        <div class="nanny-name-detail">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="m-0 ">{{nannies_info?.nanny_id?.nannyInfo?.name}}</p>
+                                <p class="m-0 font-s-12 text-success pe-2">{{nannies_info?.nanny_id?.nannyInfo?.covid_vaccinated === false ? ' Not Vaccinated' : 'Vaccinated'}}</p>
+                            </div>
+                        </div>                       
+                    </div>
+                    
+                    <div class="live-footer">
+                        <div class="footer-heading cust-d-flex">
+                            <div>
+                                <h6 class="m-0">{{nannies_info?.user_id?.parentInfo?.name}}</h6>
+                            </div>
+                        </div>
+                        <div class="mt- bg-light-pink">
+                          <div class="card-notification">
+                            <div class="not-img-txt"> 
+                              <div>
+                                <img src="{{NANNY_DOC+nannies_info?.user_id?.parentInfo?.parent_app_users[0]?.image}}" alt="" (error) ="onImgError($event)">
+                              </div>
+                              <div>
+                                <p class="m-0 text-black-theme">{{nannies_info?.booking_id?.child_obj?.name}}</p>
+                                <p class="m-0 mt- ms- font-s-12">{{timeConversion(nannies_info?.nanny_booking_slot_id?.booking_start_time)}}</p>
+                                </div>
+                              </div>
+                              <div>
+                                <!-- <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button> -->
+                                <a routerLink="/user/watch/full-screen-interview/{{nannies_info?._id === null ? 0 : nannies_info?._id}}/{{nannies_info?.room_id === null ? 0 : nannies_info?.room_id}}"> <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                  </svg>
+                                </button></a>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6></h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-nannies text-center" *ngIf="liveNanniesList.length == 0">
+
+          No Nanny Live Found
+
+        </div>
+        <!-- <div class="col-xl-4 mb-5">
+          <div class="card">
+              <div class="card-body nanny-live">
+                  <div class="live-video">
+                      <video muted="" autoplay="" loop="" width="100%" >
+                          <source src="../assets/video/nanny2.mp4">
+                      </video>
+                      <div class="top-header-video">
+                          <p class="m-0">Live</p>
+                      </div> 
+                      <div class="nanny-name-detail">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <p class="m-0 ">Shimpy Shan</p>
+                              <p class="m-0 font-s-12 text-success pe-2">Vaccinated</p>
+
+                          </div>
+                      </div>                       
+                  </div>
+                  
+                  <div class="live-footer">
+                      <div class="footer-heading cust-d-flex">
+                          <div>
+                              <h6 class="m-0">Joseph Jones</h6>
+                              <p class="font-s-12 m-0">123 Main Street, New York, NY 10030   </p>
+                          </div>
+                      </div>
+                      <div class="mt- bg-light-pink">
+                        <div class="card-notification">
+                          <div class="not-img-txt"> 
+                            <div>
+                              <img src="../assets/img/curved-images/curved0.jpg" alt="">
+                            </div>
+                            <div>
+                              <p class="m-0 text-black-theme">Diaper Change</p>
+                              <p class="m-0 mt- ms- font-s-12">09:30AM</p>
+                              </div>
+                            </div>
+                            <div>
+                              <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button>
+                              <a routerLink="/user/watch/full-screen"> <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                </svg>
+                              </button></a>
+                            </div>
+                          </div>
+                       </div>
+                  </div>
+                  <h6></h6>
+              </div>
+          </div>
+        </div>
+        <div class="col-xl-4 mb-5">
+          <div class="card">
+              <div class="card-body nanny-live">
+                  <div class="live-video">
+                      <video muted="" autoplay="" loop="" width="100%" >
+                          <source src="../assets/video/nann3.mp4">
+                      </video>
+                      <div class="top-header-video">
+                          <p class="m-0">Live</p>
+                      </div> 
+                      <div class="nanny-name-detail">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <p class="m-0 ">Shimpy Shan</p>
+                              <p class="m-0 font-s-12 text-success pe-2">Vaccinated</p>
+
+                          </div>
+                      </div>                       
+                  </div>
+                  
+                  <div class="live-footer">
+                      <div class="footer-heading cust-d-flex">
+                          <div>
+                              <h6 class="m-0">Joseph Jones</h6>
+                              <p class="font-s-12 m-0">123 Main Street, New York, NY 10030   </p>
+                          </div>
+                      </div>
+                      <div class="mt- bg-light-pink">
+                        <div class="card-notification">
+                          <div class="not-img-txt"> 
+                            <div>
+                              <img src="../assets/img/curved-images/curved0.jpg" alt="">
+                            </div>
+                            <div>
+                              <p class="m-0 text-black-theme">Diaper Change</p>
+                              <p class="m-0 mt- ms- font-s-12">09:30AM</p>
+                              </div>
+                            </div>
+                            <div>
+                              <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button>
+                              <a routerLink="/user/watch/full-screen"> <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                </svg>
+                              </button></a>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <h6></h6>
+              </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-4 mb-5">
+            <div class="card">
+                <div class="card-body nanny-live">
+                    <div class="live-video">
+                        <video muted="" autoplay="" loop="" width="100%" >
+                            <source src="../assets/video/nanyy.mp4">
+                        </video>
+                        <div class="top-header-video">
+                            <p class="m-0">Live</p>
+                        </div> 
+                        <div class="nanny-name-detail">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="m-0 ">Shimpy Shan</p>
+                                <p class="m-0 font-s-12 text-success pe-2">Vaccinated</p>
+
+                            </div>
+                        </div>                       
+                    </div>
+                    
+                    <div class="live-footer">
+                        <div class="footer-heading cust-d-flex">
+                            <div>
+                                <h6 class="m-0">Joseph Jones</h6>
+                                <p class="font-s-12 m-0">123 Main Street, New York, NY 10030   </p>
+                            </div>
+                        </div>
+                        <div class="mt- bg-light-pink">
+                          <div class="card-notification">
+                            <div class="not-img-txt"> 
+                              <div>
+                                <img src="../assets/img/curved-images/curved0.jpg" alt="">
+                              </div>
+                              <div>
+                                <p class="m-0 text-black-theme">Diaper Change</p>
+                                <p class="m-0 mt- ms- font-s-12">09:30AM</p>
+                                </div>
+                              </div>
+                              <div>
+                                <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button>
+                                <a routerLink="/user/watch/full-screen"> <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                  </svg>
+                                </button></a>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6></h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 mb-5">
+          <div class="card">
+              <div class="card-body nanny-live">
+                  <div class="live-video">
+                      <video muted="" autoplay="" loop="" width="100%" >
+                          <source src="../assets/video/nanny2.mp4">
+                      </video>
+                      <div class="top-header-video">
+                          <p class="m-0">Live</p>
+                      </div> 
+                      <div class="nanny-name-detail">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <p class="m-0 ">Shimpy Shan</p>
+                              <p class="m-0 font-s-12 text-success pe-2">Vaccinated</p>
+
+                          </div>
+                      </div>                       
+                  </div>
+                  
+                  <div class="live-footer">
+                      <div class="footer-heading cust-d-flex">
+                          <div>
+                              <h6 class="m-0">Joseph Jones</h6>
+                              <p class="font-s-12 m-0">123 Main Street, New York, NY 10030   </p>
+                          </div>
+                      </div>
+                      <div class="mt- bg-light-pink">
+                        <div class="card-notification">
+                          <div class="not-img-txt"> 
+                            <div>
+                              <img src="../assets/img/curved-images/curved0.jpg" alt="">
+                            </div>
+                            <div>
+                              <p class="m-0 text-black-theme">Diaper Change</p>
+                              <p class="m-0 mt- ms- font-s-12">09:30AM</p>
+                              </div>
+                            </div>
+                            <div>
+                              <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button>
+                              <a routerLink="/user/watch/full-screen"> <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                </svg>
+                              </button></a>
+                            </div>
+                          </div>
+                       </div>
+                  </div>
+                  <h6></h6>
+              </div>
+          </div>
+        </div>
+        <div class="col-xl-4 mb-5">
+          <div class="card">
+              <div class="card-body nanny-live">
+                  <div class="live-video">
+                      <video muted="" autoplay="" loop="" width="100%" >
+                          <source src="../assets/video/nann3.mp4">
+                      </video>
+                      <div class="top-header-video">
+                          <p class="m-0">Live</p>
+                      </div> 
+                      <div class="nanny-name-detail">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <p class="m-0 ">Shimpy Shan</p>
+                              <p class="m-0 font-s-12 text-success pe-2">Vaccinated</p>
+
+                          </div>
+                      </div>                       
+                  </div>
+                  
+                  <div class="live-footer">
+                      <div class="footer-heading cust-d-flex">
+                          <div>
+                              <h6 class="m-0">Joseph Jones</h6>
+                              <p class="font-s-12 m-0">123 Main Street, New York, NY 10030   </p>
+                          </div>
+                      </div>
+                      <div class="mt- bg-light-pink">
+                        <div class="card-notification">
+                          <div class="not-img-txt"> 
+                            <div>
+                              <img src="../assets/img/curved-images/curved0.jpg" alt="">
+                            </div>
+                            <div>
+                              <p class="m-0 text-black-theme">Diaper Change</p>
+                              <p class="m-0 mt- ms- font-s-12">09:30AM</p>
+                              </div>
+                            </div>
+                            <div>
+                              <button class="btn bg-gradient-info p-2 m-0 me-2">Push</button>
+                              <a routerLink="/user/watch/full-screen"> 
+                                <button class="btn bg-gradient-info p-2 m-0"><svg width="18" height="18" viewBox="0 0 465 464" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M36.3105 1.52057C19.4075 6.06557 6.1495 19.5126 1.6905 36.6326C-0.5635 45.2836 -0.5635 418.596 1.6905 427.247C6.2075 444.588 19.4925 457.916 36.7405 462.409C41.9185 463.758 65.1925 463.94 232.199 463.94C438.921 463.94 426.688 464.273 438.411 458.332C445.461 454.76 454.314 446.075 458.048 439.069C464.429 427.099 464.198 431.525 464.198 321.096C464.198 246.406 463.893 219.655 463.009 216.704C462.355 214.522 459.875 210.573 457.497 207.928C448.583 198.013 434.819 197.24 424.765 206.09C416.078 213.736 416.762 205.311 416.198 311.617C415.703 404.784 415.676 405.824 413.636 408.555C412.502 410.074 410.332 412.244 408.813 413.378C406.052 415.44 406.017 415.44 233.614 415.698C42.9445 415.984 56.9945 416.472 51.5805 409.374L48.6985 405.596L48.4405 233.187C48.1525 41.0646 47.5845 56.7986 55.0105 51.1336L58.5415 48.4396L152.62 47.9396C258.328 47.3776 250.455 47.9996 257.817 39.6356C263.877 32.7506 265.554 25.2596 262.982 16.5556C261.359 11.0626 253.076 2.77857 247.583 1.15557C244.464 0.234568 219.032 -0.0444313 142.583 0.00556871C57.7845 0.0605687 40.8395 0.302568 36.3105 1.52057ZM328.198 1.23557C323.281 2.80157 314.917 11.4686 313.414 16.5556C310.644 25.9316 312.597 33.4066 319.664 40.4736C322.836 43.6446 326.221 45.9576 328.814 46.7236C331.562 47.5356 341.199 47.9396 357.811 47.9396H382.693L309.041 121.69C268.533 162.253 234.725 196.79 233.912 198.44C228.277 209.88 233.341 224.442 244.9 230.038C250.798 232.893 260.065 233.112 265.198 230.517C267.123 229.544 301.886 195.605 342.448 155.097L416.198 81.4446V106.327C416.198 122.939 416.602 132.576 417.414 135.324C419.037 140.817 427.321 149.101 432.814 150.724C442.361 153.545 451.005 151.173 457.497 143.952C459.875 141.307 462.355 137.358 463.009 135.176C463.869 132.304 464.198 114.858 464.198 72.0416C464.198 6.44456 464.392 8.47857 457.633 3.32157L453.855 0.439569L392.776 0.280568C350.215 0.169568 330.637 0.458568 328.198 1.23557Z" fill="#fff"/>
+                                </svg>
+                              </button></a>
+                            </div>
+                          </div>
+                       </div>
+                  </div>
+                  <h6></h6>
+              </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </main>

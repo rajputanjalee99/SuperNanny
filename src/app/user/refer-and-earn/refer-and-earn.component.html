@@ -1,0 +1,141 @@
+<aside>
+    <app-sidebar></app-sidebar>
+</aside>
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ps ps--active-y">
+    <app-header [data]="title"></app-header>
+    <div class="container-fluid my-4">
+      <h5>Refer and Earn</h5>
+    </div>
+    <div class="container-fluid my-4">
+      <h6>My Referr Code : <strong>{{myreferral_code}}</strong></h6>
+    </div>
+    <div class="container-fluid mb-5">
+      <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body p-1"> 
+                <div class="table-responsive">
+                  <table class="table text-center align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time</th>
+                        <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer Name</th> -->
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Coupan Code</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Share to</th>
+                        <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let referred of this.referred;let i = index">
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{i+1 + this.offset}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{referred?.createdAt | date : 'mediumDate'}}</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{referred?.createdAt | date : 'h:mm a'}}</span>
+                        </td>
+                        <!-- <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Harry Jones</span>
+                        </td> -->
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">{{referred?.refer_code}}</span>
+                          </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">{{referred?.role === 'supervisor' ? referred?.referral_user_id?.supervisorInfo?.name : referred?.role === 'nanny' ? referred?.referral_user_id?.nannyInfo?.name : referred?.role === 'parent' ? referred?.referral_user_id?.parentInfo?.name : ''  }}</span>
+                        </td>
+                        <!-- <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold text-success">Success</span>
+                        </td> -->
+                      </tr>
+                      <!-- <tr>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">1</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">17 Sep, 2022</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">06:20 PM</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Harry Jones</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">12040574</span>
+                          </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Joseph Jossan</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold text-danger">Failed</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">1</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">17 Sep, 2022</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">06:20 PM</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Harry Jones</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">12040574</span>
+                          </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Joseph Jossan</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold text-warning">Pending</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">1</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">17 Sep, 2022</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">06:20 PM</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Harry Jones</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-xs font-weight-bold">12040574</span>
+                          </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold">Joseph Jossan</span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-xs font-weight-bold text-success">Success</span>
+                        </td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                  <div class="text-center"*ngIf="this.referred?.length === 0">
+                    *Referred List is Empty  
+                   </div>
+                   <mat-paginator #tablepaginator [pageSizeOptions]="[5, 10, 25, 100]"
+                   [length]="totalRecords"
+                   [pageSize]="1"
+                   (page)="paginationOptionChange($event)"
+                    aria-label="Select page of users"
+                    showFirstLastButtons>
+                   </mat-paginator>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </main>
